@@ -1,0 +1,23 @@
+name: Test
+on:
+  pull_request:
+  push:
+
+concurrency:
+  group: ci-test-${{ github.head_ref || github.ref }}-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        bundles:
+          - metallb
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker-practice/actions-setup-docker@master
+      - uses: earthly/actions-setup@v1
+        with:
+          version: "latest"
+      - run: earthly --ci --push +test --BUNDLE=${{ matrix.bundles }}

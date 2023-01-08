@@ -1,0 +1,34 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+
+concurrency:
+  group: ci-publish-${{ github.head_ref || github.ref }}-${{ github.repository }}
+  cancel-in-progress: true
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    strategy:
+      matrix:
+        bundles:
+          - metallb
+    env:
+      REGISTRY: quay.io
+      REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker-practice/actions-setup-docker@master
+      - uses: earthly/actions-setup@v1
+        with:
+          version: "latest"
+      - run: echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY
+      - run: earthly --ci --push +build --BUNDLE=${{ matrix.bundles }}
