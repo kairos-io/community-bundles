@@ -1,7 +1,6 @@
 package kubemedia_test
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -11,20 +10,11 @@ import (
 
 var _ = Describe("metallb test", Label("metallb"), func() {
 
-	runBundle := func() {
-		out, err := SH("cd /bundle && ./run.sh")
-		fmt.Println(out)
-		Expect(err).ToNot(HaveOccurred(), out)
-	}
 	BeforeEach(func() {
-		SH("cp -rf /bundle /bundle.bak")
-		SH("mkdir /oem")
+		prepareBundle()
 	})
 	AfterEach(func() {
-		SH("rm -rfv /oem")
-		SH("rm -rfv /var/lib/rancher/k3s/server/manifests/")
-		SH("rm -rf /bundle")
-		SH("cp -rf /bundle.bak /bundle")
+		cleanBundle()
 	})
 
 	It("sets default version", func() {

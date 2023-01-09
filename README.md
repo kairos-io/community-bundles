@@ -88,6 +88,26 @@ metallb:
   address_pool: 192.168.1.10-192.168.1.20
 ```
 
+## Kubevirt
+
+The Kubevirt bundle deploys [Kubevirt](https://github.com/kubevirt/kubevirt) and optionally [kubevirt-manager](https://kubevirt-manager.io/)
+
+
+The bundle does add a `kubevirt` block, that allow to enable `kubevirt-manager`:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:kubevirt_latest
+
+# Specify kubevirt settings
+kubevirt:
+  manager: true
+```
+
 ## Development
 
 If you want to build and test a bundle, you can use earthly by running the following commands:

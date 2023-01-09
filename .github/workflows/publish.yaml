@@ -20,6 +20,7 @@ jobs:
       matrix:
         bundles:
           - metallb
+          - kubevirt
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
