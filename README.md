@@ -1,6 +1,15 @@
-# community-bundles
 
-Welcome to the community-bundles repository! This repository builds and pushes Kairos community bundles that can be consumed by Kairos core or derivative images (such as [provider-kairos](https://github.com/kairos-io/provider-kairos)) to extend Kairos configurations and settings, and to add cloud-config keywords.
+<h1 align="center">
+  <br>
+     <img width="184" alt="kairos-white-column 5bc2fe34" src="https://user-images.githubusercontent.com/2420543/193010398-72d4ba6e-7efe-4c2e-b7ba-d3a826a55b7d.png">
+    <br>
+<br>
+</h1>
+
+<h3 align="center">Kairos Community Bundles</h3>
+
+<hr>
+Welcome to the community-bundles repository! This repository builds and pushes Kairos community bundles that can be consumed by Kairos core or derivative images (such as [provider-kairos](https://github.com/kairos-io/provider-kairos) ) to extend Kairos configurations and settings, and to add cloud-config keywords.
 
 Please note that these community bundles are not officially supported and are provided on a best-effort basis by the community.
 
