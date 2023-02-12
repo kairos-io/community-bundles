@@ -21,6 +21,8 @@ jobs:
         bundles:
           - metallb
           - kubevirt
+          - system-upgrade-controller
+          - cert-manager
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}

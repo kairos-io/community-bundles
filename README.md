@@ -119,6 +119,44 @@ kubevirt:
   manager: true
 ```
 
+## System upgrade controller
+
+The System upgrade controller bundle deploys [System upgrade controller](https://github.com/rancher/system-upgrade-controller).
+
+The bundle does add a `suc` block, that allow to change the version:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
+
+# Specify system-upgrade-controller settings
+suc:
+  version: v0.10.0
+```
+
+## Cert-manager
+
+The cert-manager bundle deploys [cert-manager](https://cert-manager.io/docs/installation/).
+
+The bundle does add a `certManager` block, that allow to change the version (currently only available `v1.11.0`):
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:cert-manager_latest
+
+# Specify cert-manager settings
+certManager:
+  version: v1.11.0
+```
+
 ## Development
 
 If you want to build and test a bundle, you can use earthly by running the following commands:

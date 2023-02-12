@@ -14,6 +14,8 @@ jobs:
         bundles:
           - metallb
           - kubevirt
+          - system-upgrade-controller
+          - cert-manager
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
