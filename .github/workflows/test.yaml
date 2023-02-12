@@ -18,7 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: docker-practice/actions-setup-docker@master
-      - uses: earthly/actions-setup@v1
-        with:
-          version: "latest"
-      - run: earthly --ci --push +test --BUNDLE=${{ matrix.bundles }}
+      - run: ./earthly.sh --ci --push +test --BUNDLE=${{ matrix.bundles }}
