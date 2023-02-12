@@ -14,6 +14,7 @@ jobs:
         bundles:
           - metallb
           - kubevirt
+          - system-upgrade-controller
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

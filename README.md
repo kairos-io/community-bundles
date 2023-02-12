@@ -119,6 +119,25 @@ kubevirt:
   manager: true
 ```
 
+## System upgrade controller
+
+The System upgrade controller bundle deploys [System upgrade controller](https://github.com/rancher/system-upgrade-controller).
+
+The bundle does add a `system-upgrade-controller` block, that allow to change the version:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
+
+# Specify system-upgrade-controller settings
+system-upgrade-controller:
+  version: v0.10.0
+```
+
 ## Development
 
 If you want to build and test a bundle, you can use earthly by running the following commands:

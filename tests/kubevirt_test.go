@@ -1,4 +1,4 @@
-package kubemedia_test
+package bundles_test
 
 import (
 	"os"
