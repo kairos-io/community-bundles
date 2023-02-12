@@ -13,7 +13,7 @@ getConfig() {
     echo   
 }
 
-VERSION="v0.10.0"
+VERSION="v1.11.0"
 
 templ() {
     local file="$3"
@@ -23,7 +23,7 @@ templ() {
 }
 
 readConfig() {
-    _version=$(getConfig suc.version)
+    _version="$(getConfig 'certManager.version')"
     if [ "$_version" != "" ]; then
         VERSION=$_version
     fi
@@ -33,9 +33,4 @@ mkdir -p $K3S_MANIFEST_DIR
 
 readConfig
 
-# Copy manifests, and template them
-for FILE in assets/*; do 
-  templ "VERSION" "${VERSION}" $FILE
-done;
-
-cp -rf assets/* $K3S_MANIFEST_DIR
+cp -rf assets/cert-manager-$VERSION.yaml $K3S_MANIFEST_DIR/cert-manager.yaml

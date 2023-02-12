@@ -27,7 +27,7 @@ var _ = Describe("system-upgrade-controller test", Label("system-upgrade-control
 
 	It("Specific version", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
-system-upgrade-controller:
+suc:
  version: foobar`), 0655)
 		Expect(err).ToNot(HaveOccurred())
 		runBundle()
