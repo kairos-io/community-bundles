@@ -19,6 +19,7 @@ Please note that these community bundles are not officially supported and are pr
 
 - [Usage](#usage)
 - [Bundles](#bundles)
+  - [Calico](#calico)
   - [Cert-Manager](#cert-manager)
   - [Kubevirt](#kubevirt)
   - [MetalLB](#metallb)
@@ -60,6 +61,25 @@ k3s:
 ```
 
 ## Bundles
+
+### Calico
+
+The calico bundle deploys [Project Calico](https://docs.tigera.io/calico/latest/about/).
+
+To configure the bundle, use the `calico` block:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:calico_latest
+
+# Specify calico settings
+calico:
+  version: 3.25.0
+```
 
 ### Cert-manager
 

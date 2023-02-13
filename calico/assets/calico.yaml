@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tigera-operator
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: calico
+  namespace: tigera-operator
+spec:
+  chart: calico
+  repo: https://docs.tigera.io/calico/charts
+  version: "@VERSION@"
