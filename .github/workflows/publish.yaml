@@ -19,10 +19,10 @@ jobs:
     strategy:
       matrix:
         bundles:
-          - metallb
-          - kubevirt
-          - system-upgrade-controller
           - cert-manager
+          - kubevirt
+          - metallb
+          - system-upgrade-controller
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
