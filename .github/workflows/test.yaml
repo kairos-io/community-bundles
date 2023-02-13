@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         bundles:
+          - calico
           - cert-manager
           - kubevirt
           - metallb
