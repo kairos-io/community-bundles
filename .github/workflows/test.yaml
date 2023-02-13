@@ -12,10 +12,10 @@ jobs:
     strategy:
       matrix:
         bundles:
-          - metallb
-          - kubevirt
-          - system-upgrade-controller
           - cert-manager
+          - kubevirt
+          - metallb
+          - system-upgrade-controller
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
