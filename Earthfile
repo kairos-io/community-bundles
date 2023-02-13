@@ -4,6 +4,9 @@ ARG BUNDLE
 ARG VERSION="latest"
 ARG IMAGE_REPOSITORY=quay.io/kairos/community-bundles
 
+# renovate: datasource=docker depName=renovate/renovate versioning=docker
+ARG RENOVATE_VERSION=34
+
 version:
     FROM alpine
     RUN apk add git
@@ -34,3 +37,13 @@ test:
     RUN cd tests && \ 
         go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo && \
         ginkgo --label-filter="${BUNDLE}" -v ./...
+
+renovate-validate:
+    ARG RENOVATE_VERSION
+    FROM renovate/renovate:$RENOVATE_VERSION
+    WORKDIR /usr/src/app
+    COPY renovate.json .
+    RUN renovate-config-validator
+
+lint:
+    BUILD +renovate-validate
