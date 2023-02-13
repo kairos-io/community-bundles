@@ -76,7 +76,7 @@ bundles:
 - targets:
   - run://quay.io/kairos/community-bundles:calico_latest
 
-# Specify cert-manager settings
+# Specify calico settings
 calico:
   version: 3.25.0
 ```
