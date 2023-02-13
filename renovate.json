@@ -23,6 +23,15 @@
         "earthly\\/earthly:(?<currentValue>.*?)\\s"
       ],
       "versioningTemplate": "semver-coerced"
+    },
+    {
+      "datasourceTemplate": "helm",
+      "fileMatch": [
+        "^run\\.sh$"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\sVERSION=\\\"(?<currentValue>.*?)\\\"\\s"
+      ]
     }
   ]
 }

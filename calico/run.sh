@@ -13,6 +13,7 @@ getConfig() {
     echo   
 }
 
+# renovate: depName=calico repoUrl=https://docs.tigera.io/calico/charts
 VERSION="3.25.0"
 
 templ() {
