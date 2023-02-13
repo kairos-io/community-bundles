@@ -15,6 +15,16 @@ Welcome to the community-bundles repository! This repository builds and pushes K
 
 Please note that these community bundles are not officially supported and are provided on a best-effort basis by the community.
 
+## Table of Contents
+
+- [Usage](#usage)
+- [Bundles](#bundles)
+  - [Cert-Manager](#cert-manager)
+  - [Kubevirt](#kubevirt)
+  - [MetalLB](#metallb)
+  - [System Upgrade Controller](#system-upgrade-controller)
+- [Development](#development)
+
 ## Usage
 
 To use a community bundle, you can load it with the bundles block in the Kairos configuration file, like this:
@@ -50,6 +60,45 @@ k3s:
 ```
 
 ## Bundles
+
+### Cert-manager
+
+The cert-manager bundle deploys [cert-manager](https://cert-manager.io/docs/installation/).
+
+The bundle does add a `certManager` block, that allow to change the version (currently only available `v1.11.0`):
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:cert-manager_latest
+
+# Specify cert-manager settings
+certManager:
+  version: v1.11.0
+```
+
+### Kubevirt
+
+The Kubevirt bundle deploys [Kubevirt](https://github.com/kubevirt/kubevirt) and optionally [kubevirt-manager](https://kubevirt-manager.io/)
+
+
+The bundle does add a `kubevirt` block, that allow to enable `kubevirt-manager`:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:kubevirt_latest
+
+# Specify kubevirt settings
+kubevirt:
+  manager: true
+```
 
 ### MetalLB
 
@@ -99,27 +148,7 @@ metallb:
   address_pool: 192.168.1.10-192.168.1.20
 ```
 
-## Kubevirt
-
-The Kubevirt bundle deploys [Kubevirt](https://github.com/kubevirt/kubevirt) and optionally [kubevirt-manager](https://kubevirt-manager.io/)
-
-
-The bundle does add a `kubevirt` block, that allow to enable `kubevirt-manager`:
-
-```yaml
-#cloud-config
-
-# Specify the bundle to use
-bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:kubevirt_latest
-
-# Specify kubevirt settings
-kubevirt:
-  manager: true
-```
-
-## System upgrade controller
+### System upgrade controller
 
 The System upgrade controller bundle deploys [System upgrade controller](https://github.com/rancher/system-upgrade-controller).
 
@@ -136,25 +165,6 @@ bundles:
 # Specify system-upgrade-controller settings
 suc:
   version: v0.10.0
-```
-
-## Cert-manager
-
-The cert-manager bundle deploys [cert-manager](https://cert-manager.io/docs/installation/).
-
-The bundle does add a `certManager` block, that allow to change the version (currently only available `v1.11.0`):
-
-```yaml
-#cloud-config
-
-# Specify the bundle to use
-bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:cert-manager_latest
-
-# Specify cert-manager settings
-certManager:
-  version: v1.11.0
 ```
 
 ## Development
