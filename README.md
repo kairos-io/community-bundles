@@ -21,6 +21,7 @@ Please note that these community bundles are not officially supported and are pr
 - [Bundles](#bundles)
   - [Calico](#calico)
   - [Cert-Manager](#cert-manager)
+  - [Kairos](#kairos)
   - [Kubevirt](#kubevirt)
   - [MetalLB](#metallb)
   - [System Upgrade Controller](#system-upgrade-controller)
@@ -98,6 +99,30 @@ bundles:
 # Specify cert-manager settings
 certManager:
   version: v1.11.0
+```
+
+### Kairos
+
+The Kairos bundle deploys the [Kairos helm-charts](https://github.com/kairos-io/helm-charts). It installs the `kairos-crds` chart, and allows to enable `entangle-proxy`, `osbuilder`, and `entangle`.
+
+By default the bundle will install only the CRDs, components needs to be explicitly enabled:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:kairos_latest
+
+# Specify kairos bundle setting
+kairos:
+  osbuilder:
+    enable: true
+  entangle:
+    enable: true
+  entangleProxy:
+    enable: true
 ```
 
 ### Kubevirt

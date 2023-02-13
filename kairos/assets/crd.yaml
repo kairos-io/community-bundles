@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kairos
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: kairos-crds
+  namespace: kairos
+spec:
+  chart: kairos-crds
+  repo: https://kairos-io.github.io/helm-charts
+  version: "@VERSION@"

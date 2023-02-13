@@ -22,6 +22,7 @@ jobs:
           - calico
           - cert-manager
           - kubevirt
+          - kairos
           - metallb
           - system-upgrade-controller
     env:

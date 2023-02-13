@@ -16,6 +16,7 @@ jobs:
           - cert-manager
           - kubevirt
           - metallb
+          - kairos
           - system-upgrade-controller
     runs-on: ubuntu-latest
     steps:
