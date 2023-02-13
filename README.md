@@ -103,7 +103,7 @@ certManager:
 
 ### Kairos
 
-The Kairos bundle deploys the [Kairos helm-charts](https://github.com/kairos-io/helm-charts). It installs the `kairos-crds` chart, and allows to enable `entangle-proxy`, `osbuilder`, and `entangle`.
+The Kairos bundle deploys the [Kairos helm-charts](https://github.com/kairos-io/helm-charts). It installs the `kairos-crds` chart, and allows to enable [entangle-proxy](https://kairos.io/docs/reference/entangle/), [osbuilder](https://kairos.io/docs/advanced/build/), and [entangle](https://kairos.io/docs/reference/entangle/).
 
 By default the bundle will install only the CRDs, components needs to be explicitly enabled:
 
@@ -119,10 +119,13 @@ bundles:
 kairos:
   osbuilder:
     enable: true
+    version: ... #optional
   entangle:
     enable: true
+    version: ... #optional
   entangleProxy:
     enable: true
+    version: ... #optional
 ```
 
 ### Kubevirt
