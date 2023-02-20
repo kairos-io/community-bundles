@@ -11,4 +11,6 @@ metadata:
 spec:
   chart: calico
   repo: https://docs.tigera.io/calico/charts
+  valuesContent: |-
+    @VALUES@
   version: "@VERSION@"

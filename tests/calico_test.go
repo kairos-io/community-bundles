@@ -37,4 +37,29 @@ calico:
 		Expect(err).ToNot(HaveOccurred())
 		Expect(content).To(ContainSubstring("version: \"1\""))
 	})
+
+	It("Deploy calico with default values", func() {
+		runBundle()
+		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "calico.yaml"))
+		content := string(dat)
+		Expect(err).ToNot(HaveOccurred())
+		Expect(content).To(ContainSubstring("valuesContent: |-\n    {}"))
+	})
+
+	It("Specifiy installation values for calico", func() {
+		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
+calico:
+ values:
+  installation:
+   calicoNetwork:
+    bgp: Disabled
+`), 0655)
+		Expect(err).ToNot(HaveOccurred())
+
+		runBundle()
+		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "calico.yaml"))
+		content := string(dat)
+		Expect(err).ToNot(HaveOccurred())
+		Expect(content).To(ContainSubstring("valuesContent: |-\n    {\"installation\":{\"calicoNetwork\":{\"bgp\":\"Disabled\"}}}"))
+	})
 })
