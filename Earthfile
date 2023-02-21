@@ -6,6 +6,8 @@ ARG IMAGE_REPOSITORY=quay.io/kairos/community-bundles
 
 # renovate: datasource=docker depName=renovate/renovate versioning=docker
 ARG RENOVATE_VERSION=34
+# renovate: datasource=docker depName=koalaman/shellcheck-alpine versioning=docker
+ARG SHELLCHECK_VERSION=v0.9.0
 
 version:
     FROM alpine
@@ -45,5 +47,13 @@ renovate-validate:
     COPY renovate.json .
     RUN renovate-config-validator
 
+shellcheck-lint:
+    ARG SHELLCHECK_VERSION
+    FROM koalaman/shellcheck-alpine:$SHELLCHECK_VERSION
+    WORKDIR /mnt
+    COPY . .
+    RUN find . -name "*.sh" -print | xargs -r -n1 shellcheck
+
 lint:
     BUILD +renovate-validate
+    BUILD +shellcheck-lint
