@@ -6,9 +6,9 @@ K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
 getConfig() {
     local l="$1"
-    key=$(kairos-agent config get "$l" | tr -d '\n')
+    key=$(kairos-agent config get "${l}" | tr -d '\n')
     if [ "$key" != "null" ]; then
-     echo $key
+     echo "${key}"
     fi 
     echo   
 }
@@ -29,8 +29,8 @@ readConfig() {
     fi
 }
 
-mkdir -p $K3S_MANIFEST_DIR
+mkdir -p "${K3S_MANIFEST_DIR}"
 
 readConfig
 
-cp -rf assets/cert-manager-$VERSION.yaml $K3S_MANIFEST_DIR/cert-manager.yaml
+cp -rf "assets/cert-manager-${VERSION}.yaml" "${K3S_MANIFEST_DIR}/cert-manager.yaml"

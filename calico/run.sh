@@ -24,7 +24,7 @@ templ() {
     local file="$3"
     local value=$2
     local sentinel=$1
-    sed -i "s/@${sentinel}@/${value}/g" ${file}
+    sed -i "s/@${sentinel}@/${value}/g" "${file}"
 }
 
 readConfig() {
@@ -38,14 +38,14 @@ readConfig() {
     fi
 }
 
-mkdir -p $K3S_MANIFEST_DIR
+mkdir -p "${K3S_MANIFEST_DIR}"
 
 readConfig
 
 # Copy manifests, and template them
 for FILE in assets/*; do 
   templ "VALUES" "${VALUES}" "${FILE}"
-  templ "VERSION" "${VERSION}" $FILE
+  templ "VERSION" "${VERSION}" "${FILE}"
 done;
 
-cp -rf assets/* $K3S_MANIFEST_DIR
+cp -rf assets/* "${K3S_MANIFEST_DIR}"

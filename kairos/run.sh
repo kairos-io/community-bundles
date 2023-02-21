@@ -6,9 +6,9 @@ K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
 getConfig() {
     local l=$1
-    key=$(kairos-agent config get $l | tr -d '\n')
+    key=$(kairos-agent config get "${l}" | tr -d '\n')
     if [ "$key" != "null" ]; then
-     echo $key
+     echo "${key}"
     fi 
     echo   
 }
@@ -29,7 +29,7 @@ templ() {
     local file="$3"
     local value="$2"
     local sentinel="$1"
-    sed -i "s/@${sentinel}@/${value}/g" ${file}
+    sed -i "s/@${sentinel}@/${value}/g" "${file}"
 }
 
 readConfig() {
@@ -63,32 +63,32 @@ readConfig() {
     fi
 }
 
-mkdir -p $K3S_MANIFEST_DIR
+mkdir -p "${K3S_MANIFEST_DIR}"
 
 readConfig
 
 # Copy manifests, and template them
 
 templ "VERSION" "${CRDS_VERSION}" assets/crd.yaml
-cp -rf assets/crd.yaml $K3S_MANIFEST_DIR/kairos-crds.yaml
+cp -rf assets/crd.yaml "${K3S_MANIFEST_DIR}/kairos-crds.yaml"
 
 if [ "$ENTANGLE_ENABLE" == "true" ]; then
     SRC="assets/entangle.yaml"
     FILE=$K3S_MANIFEST_DIR/kairos-entangle.yaml
-    templ "VERSION" "${ENTANGLE_VERSION}" $SRC
-    cp -rf $SRC $FILE
+    templ "VERSION" "${ENTANGLE_VERSION}" "${SRC}"
+    cp -rf "${SRC}" "${FILE}"
 fi
 
 if [ "$ENTANGLEPROXY_ENABLE" == "true" ]; then
     SRC="assets/entangle-proxy.yaml"
     FILE=$K3S_MANIFEST_DIR/kairos-entangle-proxy.yaml
-    templ "VERSION" "${ENTANGLEPROXY_VERSION}" $SRC
-    cp -rf $SRC $FILE
+    templ "VERSION" "${ENTANGLEPROXY_VERSION}" "${SRC}"
+    cp -rf "${SRC}" "${FILE}"
 fi
 
 if [ "$OSBUILDER_ENABLE" == "true" ]; then
     SRC="assets/osbuilder.yaml"
-    FILE=$K3S_MANIFEST_DIR/kairos-osbuilder.yaml
-    templ "VERSION" "${OSBUILDER_VERSION}" $SRC
-    cp -rf $SRC $FILE
+    FILE="${K3S_MANIFEST_DIR}/kairos-osbuilder.yaml"
+    templ "VERSION" "${OSBUILDER_VERSION}" "${SRC}"
+    cp -rf "${SRC}" "${FILE}"
 fi
