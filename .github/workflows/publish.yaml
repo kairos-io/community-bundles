@@ -23,6 +23,7 @@ jobs:
           - cert-manager
           - kubevirt
           - kairos
+          - longhorn
           - metallb
           - system-upgrade-controller
     env:
