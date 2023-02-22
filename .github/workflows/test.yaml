@@ -15,6 +15,7 @@ jobs:
           - calico
           - cert-manager
           - kubevirt
+          - longhorn
           - metallb
           - kairos
           - system-upgrade-controller
