@@ -27,7 +27,7 @@
     {
       "datasourceTemplate": "helm",
       "fileMatch": [
-        "^run\\.sh$"
+        "^.+/run\\.sh$"
       ],
       "matchStrings": [
         "#\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s([A-Z0-9_]*)VERSION=\"(?<currentValue>.*?)\"\\s"
