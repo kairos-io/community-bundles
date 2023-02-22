@@ -6,9 +6,9 @@ K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
 getConfig() {
     local l=$1
-    key=$(kairos-agent config get $l | tr -d '\n')
+    key=$(kairos-agent config get "${l}" | tr -d '\n')
     if [ "$key" != "null" ]; then
-     echo $key
+     echo "${key}"
     fi 
     echo   
 }
@@ -19,7 +19,7 @@ templ() {
     local file="$3"
     local value="$2"
     local sentinel="$1"
-    sed -i "s/@${sentinel}@/${value}/g" ${file}
+    sed -i "s/@${sentinel}@/${value}/g" "${file}"
 }
 
 readConfig() {
@@ -29,13 +29,13 @@ readConfig() {
     fi
 }
 
-mkdir -p $K3S_MANIFEST_DIR
+mkdir -p "${K3S_MANIFEST_DIR}"
 
 readConfig
 
 # Copy manifests from kubevirt
-cp -rf assets/* $K3S_MANIFEST_DIR
+cp -rf assets/* "${K3S_MANIFEST_DIR}"
 
 if [ "$KUBEVIRT_MANAGER" == "true" ]; then
-    cp -rf kubevirt-manager-manifests/* $K3S_MANIFEST_DIR
+    cp -rf kubevirt-manager-manifests/* "${K3S_MANIFEST_DIR}"
 fi
