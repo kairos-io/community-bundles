@@ -22,6 +22,7 @@ var _ = Describe("calico test", Label("calico"), func() {
 		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "calico.yaml"))
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
+		// renovate: depName=tigera-operator repoUrl=https://docs.tigera.io/calico/charts
 		Expect(content).To(ContainSubstring("version: \"3.25.0\""))
 	})
 
