@@ -39,7 +39,7 @@
         "^tests/.+_test\\.go$"
       ],
       "matchStrings": [
-        "//\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s+.*version: \\\\\\\"(?<currentValue>.*?)\\\\\\\"\\\""
+        "//\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s+.*version: \\\"(?<currentValue>.*?)\\\"\""
       ]
     }
   ]
