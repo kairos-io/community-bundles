@@ -9,7 +9,8 @@ metadata:
   name: calico
   namespace: tigera-operator
 spec:
-  chart: calico
+  name: calico
+  chart: tigera-operator
   repo: https://docs.tigera.io/calico/charts
   valuesContent: |-
     @VALUES@
