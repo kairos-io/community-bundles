@@ -9,4 +9,6 @@ metadata:
   name: metallb
   namespace: metallb-system
 spec:
-  chart: https://github.com/metallb/metallb/releases/download/metallb-chart-@VERSION@/metallb-@VERSION@.tgz 
+  chart: metallb
+  repo: https://metallb.github.io/metallb
+  version: "@VERSION@"
