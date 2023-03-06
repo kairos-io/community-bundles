@@ -13,4 +13,4 @@ spec:
   repo: https://charts.longhorn.io
   valuesContent: |-
     @VALUES@
-  version: "@VERSION@"
+  version: @VERSION@
