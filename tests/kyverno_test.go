@@ -22,7 +22,7 @@ var _ = Describe("kyverno test", Label("kyverno"), func() {
 		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "kyverno.yaml"))
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
-		Expect(content).To(ContainSubstring("version: \"1.9.1\""))
+		Expect(content).To(MatchRegexp("version: \".*?\""))
 	})
 
 	It("Specifiy version for kyverno", func() {

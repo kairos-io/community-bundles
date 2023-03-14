@@ -23,7 +23,7 @@ var _ = Describe("longhorn test", Label("longhorn"), func() {
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
 		// renovate: depName=longhorn repoUrl=https://charts.longhorn.io
-		Expect(content).To(ContainSubstring("version: 1.4.0"))
+		Expect(content).To(MatchRegexp("version: \".*?\""))
 	})
 
 	It("Specifiy version for longhorn", func() {

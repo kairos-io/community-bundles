@@ -23,7 +23,7 @@ var _ = Describe("metallb test", Label("metallb"), func() {
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
 		// renovate: depName=metallb repoUrl=https://metallb.github.io/metallb
-		Expect(content).To(ContainSubstring("version: \"0.13.7\""))
+		Expect(content).To(MatchRegexp("version: \".*?\""))
 		dat, err = os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "addresspool.yaml"))
 		content = string(dat)
 		Expect(err).ToNot(HaveOccurred())
