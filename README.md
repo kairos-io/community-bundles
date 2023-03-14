@@ -22,6 +22,7 @@ Please note that these community bundles are not officially supported and are pr
   - [Calico](#calico)
   - [Cert-Manager](#cert-manager)
   - [Kairos](#kairos)
+  - [Kyverno](#kyverno)
   - [Kubevirt](#kubevirt)
   - [Longhorn](#longhorn)
   - [MetalLB](#metallb)
@@ -140,6 +141,30 @@ kairos:
     enable: true
     version: ... #optional
 ```
+
+### Kyverno
+
+The Kyverno bundle deploys [Kyverno](https://kyverno.io/docs/introduction/).
+
+To configure the bundle, use the `kyverno` block:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+- targets:
+  - run://quay.io/kairos/community-bundles:kyverno_latest
+
+# Specify kyverno settings
+kyverno:
+  values:
+    ....
+  version: ...
+```
+
+Note that specifying `values` and `version` are optional.  Specifying `values` allows you to
+[customize the Helm Chart](https://github.com/kyverno/kyverno/blob/main/charts/kyverno/values.yaml).
 
 ### Kubevirt
 
