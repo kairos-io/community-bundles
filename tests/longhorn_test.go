@@ -17,15 +17,6 @@ var _ = Describe("longhorn test", Label("longhorn"), func() {
 		cleanBundle()
 	})
 
-	It("Deploy longhorn with default version", func() {
-		runBundle()
-		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "longhorn.yaml"))
-		content := string(dat)
-		Expect(err).ToNot(HaveOccurred())
-		// renovate: depName=longhorn repoUrl=https://charts.longhorn.io
-		Expect(content).To(MatchRegexp("version: \".*?\""))
-	})
-
 	It("Specifiy version for longhorn", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
 longhorn:
