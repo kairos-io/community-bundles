@@ -27,7 +27,7 @@ var _ = Describe("kyverno test", Label("kyverno"), func() {
 
 	It("Specifiy version for kyverno", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
-		kyverno:
+kyverno:
  version: 1`), 0655)
 		Expect(err).ToNot(HaveOccurred())
 
