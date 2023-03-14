@@ -18,6 +18,7 @@ jobs:
           - longhorn
           - metallb
           - kairos
+          - kyverno
           - system-upgrade-controller
     runs-on: ubuntu-latest
     steps:

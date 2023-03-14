@@ -24,6 +24,7 @@ jobs:
           - kubevirt
           - kairos
           - longhorn
+          - kyverno
           - metallb
           - system-upgrade-controller
     env:
