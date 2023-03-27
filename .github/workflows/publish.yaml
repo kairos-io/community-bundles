@@ -21,6 +21,7 @@ jobs:
         bundles:
           - calico
           - cert-manager
+          - coco
           - kubevirt
           - kairos
           - longhorn
