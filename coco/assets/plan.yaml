@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: custom-script
+  namespace: system-upgrade
+type: Opaque
+stringData:
+  coco-install.sh: |
+    #!/bin/sh
+    set -e
+
+    if [ -d "/host/etc/containerd/.sentinel" ]; then
+        echo "Containerd folder was populated"
+        exit 0
+    fi
+    export COCO_DEPLOY=true
+    mount --rbind /host/dev /dev
+    mount --rbind /host/run /run
+    nsenter -i -m -t 1 -- kairos-agent install-bundle run://@IMAGE@
+    exit 0
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: coco
+  namespace: system-upgrade
+spec:
+  concurrency: 1
+  # This is the version (tag) of the image.
+  # The version is referred to the kairos version plus the k3s version.
+  version: "v1.0.0-rc2-k3sv1.23.9-k3s1"
+  nodeSelector:
+    matchExpressions:
+      - { key: kubernetes.io/hostname, operator: Exists }
+  serviceAccountName: system-upgrade
+  cordon: false
+  upgrade:
+    image: quay.io/kairos/kairos-opensuse-leap
+    command:
+      - "/bin/bash"
+      - "-c"
+    args:
+      - bash /host/run/system-upgrade/secrets/custom-script/coco-install.sh
+  secrets:
+    - name: custom-script
+      path: /host/run/system-upgrade/secrets/custom-script

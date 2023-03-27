@@ -1,0 +1,2 @@
+# https://docs.k3s.io/installation/configuration#configuration-file
+container-runtime-endpoint: /etc/coco/run/containerd.sock
