@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: localai
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: localai
+  namespace: localai
+spec:
+  chart: local-ai
+  repo: https://go-skynet.github.io/helm-charts/
+  version: "@VERSION@"
+  valuesContent: |-
+    service:
+      type: "@SERVICETYPE@"

@@ -28,6 +28,7 @@ jobs:
           - kyverno
           - metallb
           - system-upgrade-controller
+          - "LocalAI"
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}

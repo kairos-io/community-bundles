@@ -20,6 +20,7 @@ jobs:
           - kairos
           - kyverno
           - system-upgrade-controller
+          - "LocalAI"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
