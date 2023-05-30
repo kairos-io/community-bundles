@@ -20,7 +20,7 @@ ENTANGLE_ENABLE=""
 ENTANGLEPROXY_VERSION="0.0.5"
 ENTANGLEPROXY_ENABLE=""
 # renovate: depName=osbuilder repoUrl=https://kairos-io.github.io/helm-charts
-OSBUILDER_VERSION="0.5.5"
+OSBUILDER_VERSION="0.6.0"
 OSBUILDER_ENABLE=""
 
 CRDS_VERSION="0.0.13"
