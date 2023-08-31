@@ -27,6 +27,7 @@ jobs:
           - longhorn
           - kyverno
           - metallb
+          - multus
           - system-upgrade-controller
           - "LocalAI"
     env:
