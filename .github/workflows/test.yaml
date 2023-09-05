@@ -17,6 +17,7 @@ jobs:
           - kubevirt
           - longhorn
           - metallb
+          - multus
           - kairos
           - kyverno
           - system-upgrade-controller
