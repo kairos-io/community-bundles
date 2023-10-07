@@ -345,4 +345,4 @@ If you want to build and test a bundle, you can use earthly by running the follo
 ./earthly.sh +test --BUNDLE=<bundle-name>
 ```
 
-We also provide a version of the `earthly.sh` script for Windows (`eartly.ps1`).
+We also provide a version of the `earthly.sh` script for Windows (`earthly.ps1`).
