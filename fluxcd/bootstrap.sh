@@ -88,7 +88,7 @@ else
         active="true"
       fi
     else
-      if timeout $long $flux bootstrap "${version_control/_/-}" "${cmdline[@]}"; then
+      if timeout $long "$flux" bootstrap "${version_control/_/-}" "${cmdline[@]}"; then
         cleanup
         exit 0
       fi
