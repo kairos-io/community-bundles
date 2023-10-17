@@ -138,6 +138,7 @@ stages:
 # `git`, `github` or `gitlab` for the provider to boostrap from.
 flux:
   env:
+    KUBECONFIG: /home/user/.kube/config # If you're not using k3s
     GITHUB_TOKEN: abcde1234
   github:
     owner: csagan
