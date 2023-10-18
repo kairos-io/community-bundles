@@ -13,5 +13,7 @@ RUN DOWNLOAD_FILE="/tmp/flux_${VERSION}_linux_amd64.tar.gz" && \
     rm "${DOWNLOAD_FILE}"
 
 FROM scratch
-COPY --from=build /flux /flux
-COPY ./bootstrap.sh /bootstrap.sh
+COPY --from=build flux .
+COPY flux-bootstrap.service .
+COPY flux-bootstrap.sh .
+COPY run.sh .

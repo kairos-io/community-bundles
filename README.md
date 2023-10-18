@@ -116,29 +116,23 @@ certManager:
 
 ### Flux
 
-This installs Flux and supports bootstrapping the cluster with [FluxCD](https://fluxcd.io/flux/cmd/flux_bootstrap/). It has logic so only one node will do the bootstrapping,
-by creating a ConfigMap in the `default` namespace named `flux-bootstrap`.
-By default, it will time out after trying for 30 minutes.
+This installs [FluxCD](https://fluxcd.io/flux/cmd/flux_bootstrap/) and supports
+automatically bootstrapping the cluster. Only one node will do the bootstrap.
+It will time out after trying for 30 minutes and it requires `systemd`.
 
 ```yaml
 #cloud-config
 
 bundles:
   - targets:
-      # Installs to /usr/local/lib/extensions/flux/
-      - container://quay.io/kairos/community-bundles:flux_latest
-
-stages:
-  boot:
-    - name: "Bootstrap with Flux"
-      commands:
-        - bash /usr/local/lib/extensions/flux/bootstrap.sh &
+      - run://quay.io/kairos/community-bundles:flux_latest
 
 # Specify command-line arguments as keys under a key of `bitbucket_server`,
-# `git`, `github` or `gitlab` for the provider to boostrap from.
+# `git`, `github` or `gitlab` for the provider to boostrap from. An example for
+# `github` is shown below.
 flux:
   env:
-    KUBECONFIG: /home/user/.kube/config # If you're not using k3s
+    KUBECONFIG: /home/csagan/.kube/config # Override default of /etc/rancher/k3s/k3s.yaml
     GITHUB_TOKEN: abcde1234
   github:
     owner: csagan
