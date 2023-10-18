@@ -7,6 +7,8 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 short=5
 long=900
 
+configmap=flux-bootstrap
+
 info () {
   echo $'\e[36mINFO\e[0m: ' "$1"
 }
@@ -21,7 +23,7 @@ error() {
 
 cleanup() {
   info "Removing bootstrap configmap"
-  timeout $short kubectl delete configmap -n default flux-boostrap
+  timeout $short kubectl delete configmap -n default $configmap
 }
 
 # Don't bootstrap if the cluster is already bootstrapped
@@ -86,12 +88,12 @@ else
       if ! timeout $short kubectl version &> /dev/null; then
         info "Kubernetes API not ready yet, sleeping"
       else
-        if ! timeout $short kubectl create configmap flux-bootstrap --from-literal=hostname="$(hostname)"; then
+        if ! timeout $short kubectl create configmap $configmap --from-literal=hostname="$(hostname)"; then
           warn "Unable to create configmap, another node may be active"
         fi
 
         # The configmap exists but we must finally check if the hostname matches
-        if [[ "$(timeout $short kubectl get configmap -n default flux-bootstrap -o jsonpath='{.data.hostname}')" != "$(hostname)" ]]; then
+        if [[ "$(timeout $short kubectl get configmap -n default $configmap -o jsonpath='{.data.hostname}')" != "$(hostname)" ]]; then
           error "Flux bootstrap ConfigMap exists but another node is active, exiting..."
           exit 3
         fi
