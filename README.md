@@ -123,6 +123,9 @@ It will time out after trying for 30 minutes and it requires `systemd`.
 ```yaml
 #cloud-config
 
+k3s:
+  enabled: true
+
 bundles:
   - targets:
       - run://quay.io/kairos/community-bundles:flux_latest
@@ -132,7 +135,8 @@ bundles:
 # `github` is shown below.
 flux:
   env:
-    KUBECONFIG: /home/csagan/.kube/config # Override default of /etc/rancher/k3s/k3s.yaml
+    # Override default $KUBECONFIG of /etc/rancher/k3s/k3s.yaml if needed
+    # KUBECONFIG: /home/csagan/.kube/config
     GITHUB_TOKEN: abcde1234
   github:
     owner: csagan
