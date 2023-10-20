@@ -1,4 +1,3 @@
-
 <h1 align="center">
   <br>
      <img width="184" alt="kairos-white-column 5bc2fe34" src="https://user-images.githubusercontent.com/2420543/193010398-72d4ba6e-7efe-4c2e-b7ba-d3a826a55b7d.png">
@@ -9,7 +8,6 @@
 <h3 align="center">Kairos Community Bundles</h3>
 
 <hr>
-
 
 Welcome to the community-bundles repository! This repository builds and pushes Kairos community bundles that can be consumed by Kairos core or derivative images (such as [provider-kairos](https://github.com/kairos-io/provider-kairos) ) to extend Kairos configurations and settings, and to add cloud-config keywords.
 
@@ -36,8 +34,8 @@ To use a community bundle, you can load it with the bundles block in the Kairos 
 
 ```yaml
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:<bundle-name>
+  - targets:
+      - run://quay.io/kairos/community-bundles:<bundle-name>
 ```
 
 Here is an example of how you might use a community bundle in a Kairos core image:
@@ -45,20 +43,20 @@ Here is an example of how you might use a community bundle in a Kairos core imag
 ```yaml
 #cloud-config
 install:
- device: "auto"
- auto: true
- reboot: true
- image: "docker:quay.io/kairos/kairos-opensuse:v1.4.0-k3sv1.26.0-k3s1"
+  device: "auto"
+  auto: true
+  reboot: true
+  image: "docker:quay.io/kairos/kairos-opensuse:v1.4.0-k3sv1.26.0-k3s1"
 
 users:
-- name: "kairos"
-  passwd: "kairos"
-  ssh_authorized_keys:
-  - ...
+  - name: "kairos"
+    passwd: "kairos"
+    ssh_authorized_keys:
+      - ...
 
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:kubevirt
+  - targets:
+      - run://quay.io/kairos/community-bundles:kubevirt
 
 k3s:
   enabled: true
@@ -77,8 +75,8 @@ To configure the bundle, use the `calico` block:
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:calico_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:calico_latest
 
 # Specify calico settings
 calico:
@@ -94,7 +92,7 @@ calico:
   version: 3.25.0
 ```
 
-Note that specifying `values` and `version` are optional.  Specifying `values` allows you to
+Note that specifying `values` and `version` are optional. Specifying `values` allows you to
 [customize the Helm Chart](https://docs.tigera.io/calico/latest/getting-started/kubernetes/helm#customize-the-helm-chart).
 
 ### Cert-manager
@@ -108,12 +106,43 @@ The bundle does add a `certManager` block, that allow to change the version (cur
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:cert-manager_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:cert-manager_latest
 
 # Specify cert-manager settings
 certManager:
   version: v1.11.0
+```
+
+### Flux
+
+This installs [FluxCD](https://fluxcd.io/flux/cmd/flux_bootstrap/) and supports
+automatically bootstrapping the cluster. Only one node will do the bootstrap.
+It will time out after trying for 30 minutes and it requires `systemd`.
+
+```yaml
+#cloud-config
+
+k3s:
+  enabled: true
+
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:flux_latest
+
+# Specify command-line arguments as keys under a key of `bitbucket_server`,
+# `git`, `github` or `gitlab` for the provider to boostrap from. An example for
+# `github` is shown below.
+flux:
+  env:
+    # Override default $KUBECONFIG of /etc/rancher/k3s/k3s.yaml if needed
+    # KUBECONFIG: /home/csagan/.kube/config
+    GITHUB_TOKEN: abcde1234
+  github:
+    owner: csagan
+    repository: fleet-infra
+    path: clusters/cosmos
+    components-extra: image-reflector-controller,image-automation-controller
 ```
 
 ### Kairos
@@ -127,8 +156,8 @@ By default the bundle will install only the CRDs, components needs to be explici
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:kairos_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:kairos_latest
 
 # Specify kairos bundle setting
 kairos:
@@ -154,23 +183,21 @@ To configure the bundle, use the `kyverno` block:
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:kyverno_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:kyverno_latest
 
 # Specify kyverno settings
 kyverno:
-  values:
-    ....
+  values: ....
   version: ...
 ```
 
-Note that specifying `values` and `version` are optional.  Specifying `values` allows you to
+Note that specifying `values` and `version` are optional. Specifying `values` allows you to
 [customize the Helm Chart](https://github.com/kyverno/kyverno/blob/main/charts/kyverno/values.yaml).
 
 ### Kubevirt
 
 The Kubevirt bundle deploys [Kubevirt](https://github.com/kubevirt/kubevirt) and optionally [kubevirt-manager](https://kubevirt-manager.io/)
-
 
 The bundle does add a `kubevirt` block, that allow to enable `kubevirt-manager`:
 
@@ -179,8 +206,8 @@ The bundle does add a `kubevirt` block, that allow to enable `kubevirt-manager`:
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:kubevirt_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:kubevirt_latest
 
 # Specify kubevirt settings
 kubevirt:
@@ -198,8 +225,8 @@ To configure the bundle, use the `longhorn` block:
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:longhorn_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:longhorn_latest
 
 # Specify longhorn settings
 longhorn:
@@ -209,7 +236,7 @@ longhorn:
   version: 1.4.0
 ```
 
-Note that specifying `values` and `version` are optional.  Specifying `values` allows you to
+Note that specifying `values` and `version` are optional. Specifying `values` allows you to
 [customize the Helm Chart](https://longhorn.io/docs/latest/advanced-resources/deploy/customizing-default-settings/#using-helm).
 
 ### MetalLB
@@ -223,8 +250,8 @@ The bundle does add a `metallb` block, that allow to set up the MetalLB version 
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:metallb_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:metallb_latest
 
 # Specify metallb settings
 metallb:
@@ -239,20 +266,20 @@ Note, you might want to disable the default LoadBalancer of k3s, a full example 
 
 hostname: kairoslab-{{ trunc 4 .MachineID }}
 users:
-- name: kairos
-  ssh_authorized_keys:
-  # Add your github user here!
-  - github:mudler
+  - name: kairos
+    ssh_authorized_keys:
+      # Add your github user here!
+      - github:mudler
 
 k3s:
   enable: true
   args:
-  - --disable=servicelb
+    - --disable=servicelb
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:metallb_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:metallb_latest
 
 # Specify metallb settings
 metallb:
@@ -271,8 +298,8 @@ To configure the bundle, use the `multus` block:
 ```yaml
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:multus_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:multus_latest
 
 # Specify multus settings. Here are the defaults:
 multus:
@@ -326,8 +353,8 @@ The bundle does add a `suc` block, that allow to change the version:
 
 # Specify the bundle to use
 bundles:
-- targets:
-  - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
+  - targets:
+      - run://quay.io/kairos/community-bundles:system-upgrade-controller_latest
 
 # Specify system-upgrade-controller settings
 suc:

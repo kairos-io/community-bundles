@@ -1,0 +1,15 @@
+[Unit]
+Description=Bootstrap cluster with Flux
+Documentation=https://github.com/kairos-io/community-bundles/blob/main/README.md#flux
+After=k3s.service
+
+[Service]
+Type=oneshot
+Restart=no
+ExecStart=/usr/local/bin/flux-bootstrap.sh
+User=root
+Group=root
+RemainAfterExit=yes
+
+[Install]
+WantedBy=k3s.service
