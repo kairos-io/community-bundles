@@ -19,7 +19,7 @@ Please note that these community bundles are not officially supported and are pr
 - [Bundles](#bundles)
   - [Calico](#calico)
   - [Cert-Manager](#cert-manager)
-  - [fluxcd](#flux)
+  - [Flux](#flux)
   - [Kairos](#kairos)
   - [Kyverno](#kyverno)
   - [Kubevirt](#kubevirt)
