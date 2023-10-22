@@ -29,6 +29,7 @@ jobs:
           - kyverno
           - metallb
           - multus
+          - nginx
           - system-upgrade-controller
           - "LocalAI"
     env:
