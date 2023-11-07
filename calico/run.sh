@@ -4,48 +4,33 @@ set -ex
 
 K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
-
-getConfig() {
-    local key=$1
-    _value=$(kairos-agent config get "${key} | @json" | tr -d '\n')
-    # Remove the quotes wrapping the value.
-    _value=${_value:1:${#_value}-2}
-    if [ "${_value}" != "null" ]; then
-     echo "${_value}"
-    fi 
-    echo   
-}
-
 VALUES="{}"
 # renovate: depName=tigera-operator repoUrl=https://docs.tigera.io/calico/charts
 VERSION="3.25.0"
 
 templ() {
     local file="$3"
-    local value=$2
-    local sentinel=$1
+    local value="$2"
+    local sentinel="$1"
     sed -i "s/@${sentinel}@/${value}/g" "${file}"
 }
 
-readConfig() {
-    _values=$(getConfig calico.values)
-    if [ "$_values" != "" ]; then
-        VALUES=$_values
-    fi
-    _version=$(getConfig calico.version)
-    if [ "$_version" != "" ]; then
-        VERSION=$_version
-    fi
-}
-
-mkdir -p "${K3S_MANIFEST_DIR}"
-
-readConfig
+_version=$(kairos-agent config get "calico.version" | tr -d '\n')
+if [ "$_version" != "null" ]; then
+    VERSION=$_version
+fi
+_values=$(kairos-agent config get "calico.values | @json" | tr -d '\n')
+# Remove the quotes wrapping the value.
+_values=${_values:1:${#_values}-2}
+if [ "$_values" != "null" ]; then
+    VALUES=$_values
+fi
 
 # Copy manifests, and template them
-for FILE in assets/*; do 
+for FILE in assets/*; do
   templ "VALUES" "${VALUES}" "${FILE}"
   templ "VERSION" "${VERSION}" "${FILE}"
 done;
 
+mkdir -p "${K3S_MANIFEST_DIR}"
 cp -rf assets/* "${K3S_MANIFEST_DIR}"
