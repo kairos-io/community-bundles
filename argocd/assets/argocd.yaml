@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aegocd
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: argocd
+  namespace: argocd
+spec:
+  name: argocd
+  chart: argocd
+  repo: https://github.com/argoproj/argo-cd
+  valuesContent: |-
+    @VALUES@
+  version: "@VERSION@"
