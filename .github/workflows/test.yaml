@@ -22,6 +22,7 @@ jobs:
           - kairos
           - kyverno
           - system-upgrade-controller
+          - argocd
           - "LocalAI"
     runs-on: ubuntu-latest
     steps:
