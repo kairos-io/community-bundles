@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: aegocd
+  name: argocd
 ---
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
