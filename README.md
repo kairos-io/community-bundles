@@ -29,6 +29,7 @@ Please note that these community bundles are not officially supported and are pr
   - [Multus](#multus)
   - [Nginx](#nginx)
   - [System upgrade controller](#system-upgrade-controller)
+  - [ArgoCD](#argocd)
 - [Development](#development)
 
 ## Usage
@@ -423,6 +424,26 @@ bundles:
 # Specify system-upgrade-controller settings
 suc:
   version: v0.10.0
+```
+
+### ArgoCD
+
+The ArgoCD bundle deploys [ArgoCD](https://argo-cd.readthedocs.io/en/stable/).
+
+To configure the bundle, use the `argocd` block:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:argocd_latest
+
+# Specify argocd settings
+argocd:
+  values: ....
+  version: ...
 ```
 
 ## Development
