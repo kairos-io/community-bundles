@@ -11,7 +11,7 @@ metadata:
 spec:
   name: argocd
   chart: argocd
-  repo: https://github.com/argoproj/argo-cd
+  repo: https://argoproj.github.io/argo-helm
   valuesContent: |-
     @VALUES@
   version: "@VERSION@"
