@@ -53,7 +53,7 @@ declare -a cmdline
 for setting in "${envs[@]}"; do
   if [[ $setting != "null" ]]; then
     env=$(echo "$setting" | cut -d: -f1)
-    value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
+    value=$(echo "$setting" |  sed -n 's/^[^:]*: *//p')
     if [[ "${value}x" != "x" ]]; then
       export "$env"="$value"
     fi
@@ -64,7 +64,7 @@ done
 for setting in "${args[@]}"; do
   if [[ $setting != "null" ]]; then
     arg=$(echo "$setting" | cut -d: -f1)
-    value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
+    value=$(echo "$setting" |  sed -n 's/^[^:]*: *//p')
     if [[ "${value}x" != "x" ]]; then
       cmdline+=("--$arg" "$value")
     fi 
