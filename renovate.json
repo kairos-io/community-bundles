@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "schedule": [
     "after 11pm every weekday",
     "before 7am every weekday",
@@ -17,40 +15,29 @@
   ],
   "regexManagers": [
     {
-      "fileMatch": [
-        "^Earthfile$",
-        "/Dockerfile$"
-      ],
+      "fileMatch": ["^Earthfile$", "/Dockerfile$"],
       "matchStrings": [
-        "#\\s*renovate:\\s*datasource=(?<datasource>.*?)\\s+depName=(?<depName>.*?)(\\s+versioning=(?<versioning>.*?))?(\\s+extractVersion=(?<extractVersion>.*?))?\\sARG\\s+.+_VERSION=(?<currentValue>.*?)\\s"
+        "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s+depName=(?<depName>[^\\s]+)(\\s+versioning=(?<versioning>[^\\s]+))?(\\s+extractVersion=(?<extractVersion>[^\\n]+))?(\\s+extractVersionTemplate=(?<extractVersionTemplate>[^\\n]+))?\\n(ARG|ENV)\\s+([^\\s]+)?VERSION=(?<currentValue>[^\\n]+)(\\n(ARG|ENV)\\s+([^\\s]+)?CHECKSUM=(?<currentDigest>[a-f0-9]+))?"
       ],
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
     },
     {
-      "fileMatch": [
-        "^earthly\\.(sh|ps1)$"
-      ],
+      "fileMatch": ["^earthly\\.(sh|ps1)$"],
       "datasourceTemplate": "docker",
       "depNameTemplate": "earthly/earthly",
-      "matchStrings": [
-        "earthly\\/earthly:(?<currentValue>.*?)\\s"
-      ],
+      "matchStrings": ["earthly\\/earthly:(?<currentValue>.*?)\\s"],
       "versioningTemplate": "semver-coerced"
     },
     {
       "datasourceTemplate": "helm",
-      "fileMatch": [
-        "^.+/run\\.sh$"
-      ],
+      "fileMatch": ["^.+/run\\.sh$"],
       "matchStrings": [
         "#\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s([A-Z0-9_]*)VERSION=\"(?<currentValue>.*?)\"\\s"
       ]
     },
     {
       "datasourceTemplate": "helm",
-      "fileMatch": [
-        "^tests/.+_test\\.go$"
-      ],
+      "fileMatch": ["^tests/.+_test\\.go$"],
       "matchStrings": [
         "//\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s+.*version: \\\"(?<currentValue>.*?)\\\"\""
       ]
