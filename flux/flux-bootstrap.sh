@@ -33,8 +33,10 @@ if flux version &>/dev/null; then
 fi
 
 # Determine what VCS we need to bootstrap
+# Starting in kairos  2.8.15, kairos-agent command returns empty string  instead of "null"
 for vcs in bitbucket_server git github gitlab; do
-  if [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "null" ]]; then
+  value=$(kairos-agent config get flux.$vcs 2>/dev/null)
+  if [[ $value != "null" && -n $value ]]; then
     version_control=$vcs
     break
   fi
