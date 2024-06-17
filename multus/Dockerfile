@@ -6,7 +6,7 @@ ARG TARGETARCH
 ARG MULTUS_VERSION=4.0.2
 
 # renovate: datasource=github-releases depName=containernetworking/plugins extractVersion=^v(?<version>.*)$
-ARG PLUGINS_VERSION=1.3.0
+ARG PLUGINS_VERSION=1.5.1
 
 WORKDIR /build
 
