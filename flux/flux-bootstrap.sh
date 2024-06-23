@@ -34,7 +34,8 @@ fi
 
 # Determine what VCS we need to bootstrap
 for vcs in bitbucket_server git github gitlab; do
-  if [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "null" ]]; then
+  flux_config_vcs=$(kairos-agent config get flux.$vcs 2>/dev/null)
+  if [[ $flux_config_vcs != "null" && $flux_config_vcs != "" ]]; then
     version_control=$vcs
     break
   fi
