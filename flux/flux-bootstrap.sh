@@ -34,7 +34,9 @@ fi
 
 # Determine what VCS we need to bootstrap
 for vcs in bitbucket_server git github gitlab; do
-  if [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "null" ]]; then
+  # kairos-agent used to return `null` when a key wasn't set, now returns empty.
+  # we handle both
+  if [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "" ]] && [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "null" ]]; then
     version_control=$vcs
     break
   fi
@@ -51,7 +53,7 @@ mapfile -t args < <(kairos-agent config get "flux.$version_control" 2>/dev/null)
 declare -a cmdline
 
 for setting in "${envs[@]}"; do
-  if [[ $setting != "null" ]]; then
+  if [[ $setting != "null" ]] && [[ $setting != "" ]]; then
     env=$(echo "$setting" | cut -d: -f1)
     value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
     if [[ "${value}x" != "x" ]]; then
@@ -62,7 +64,7 @@ done
 
 # Set commandline args
 for setting in "${args[@]}"; do
-  if [[ $setting != "null" ]]; then
+  if [[ $setting != "null" ]] && [[ $setting != "" ]]; then
     arg=$(echo "$setting" | cut -d: -f1)
     value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
     if [[ "${value}x" != "x" ]]; then
