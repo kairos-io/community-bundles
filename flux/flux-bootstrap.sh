@@ -33,8 +33,10 @@ if flux version &>/dev/null; then
 fi
 
 # Determine what VCS we need to bootstrap
+# Starting in kairos  2.8.15, kairos-agent command returns empty string  instead of "null"
 for vcs in bitbucket_server git github gitlab; do
-  if [[ $(kairos-agent config get flux.$vcs 2>/dev/null) != "null" ]]; then
+  value=$(kairos-agent config get flux.$vcs 2>/dev/null)
+  if [[ $value != "null" && -n $value ]]; then
     version_control=$vcs
     break
   fi
@@ -53,7 +55,7 @@ declare -a cmdline
 for setting in "${envs[@]}"; do
   if [[ $setting != "null" ]]; then
     env=$(echo "$setting" | cut -d: -f1)
-    value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
+    value=$(echo "$setting" |  sed -n 's/^[^:]*: *//p')
     if [[ "${value}x" != "x" ]]; then
       export "$env"="$value"
     fi
@@ -64,7 +66,7 @@ done
 for setting in "${args[@]}"; do
   if [[ $setting != "null" ]]; then
     arg=$(echo "$setting" | cut -d: -f1)
-    value=$(echo "$setting" | cut -d':' -f2 | sed -E 's/^ //g')
+    value=$(echo "$setting" |  sed -n 's/^[^:]*: *//p')
     if [[ "${value}x" != "x" ]]; then
       cmdline+=("--$arg" "$value")
     fi 
