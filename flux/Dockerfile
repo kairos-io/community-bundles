@@ -1,9 +1,9 @@
-FROM alpine as build
-# renovate: datasource=github-releases depName=fluxcd/flux2 extractVersionTemplate=^v(?<version>.*)$
-ENV VERSION=v2.1.2
+FROM alpine AS build
+# renovate: datasource=github-releases depName=fluxcd/flux2
+ENV VERSION=2.1.2
 ENV CHECKSUM=61b360b50d6cfc34410730b1cebeb75f5eda2b484e47b9a083412f51ad56de68
 
-ADD https://github.com/fluxcd/flux2/releases/download/v${VERSION}/flux_${VERSION#v}_linux_amd64.tar.gz /tmp
+ADD https://github.com/fluxcd/flux2/releases/download/v${VERSION}/flux_${VERSION}_linux_amd64.tar.gz /tmp
 RUN DOWNLOAD_FILE="/tmp/flux_${VERSION}_linux_amd64.tar.gz" && \
     DOWNLOAD_CHECKSUM=$(sha256sum "${DOWNLOAD_FILE}" | awk '{print $1}') && \
     if [[ ${DOWNLOAD_CHECKSUM} != ${CHECKSUM} ]]; then \
