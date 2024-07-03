@@ -2,6 +2,8 @@ name: Test
 on:
   pull_request:
   push:
+    branches:
+      - main
 
 concurrency:
   group: ci-test-${{ github.head_ref || github.ref }}-${{ github.repository }}
@@ -23,6 +25,8 @@ jobs:
           - kyverno
           - system-upgrade-controller
           - "LocalAI"
+          - flux
+          - coco
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
