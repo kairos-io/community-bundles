@@ -15,9 +15,9 @@
   ],
   "regexManagers": [
     {
-      "fileMatch": ["^Earthfile$", "/Dockerfile$"],
+      "fileMatch": ["^Earthfile$", "Dockerfile$"],
       "matchStrings": [
-        "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s+depName=(?<depName>[^\\s]+)(\\s+versioning=(?<versioning>[^\\s]+))?(\\s+extractVersion=(?<extractVersion>[^\\n]+))?(\\s+extractVersionTemplate=(?<extractVersionTemplate>[^\\n]+))?\\n(ARG|ENV)\\s+([^\\s]+)?VERSION=(?<currentValue>[^\\n]+)(\\n(ARG|ENV)\\s+([^\\s]+)?CHECKSUM=(?<currentDigest>[a-f0-9]+))?"
+        "#\\s*renovate:\\s*datasource=(?<datasource>[^\\s]+)\\s+depName=(?<depName>[^\\s]+)(\\s+versioning=(?<versioning>[^\\s]+))?(\\s+extractVersion=(?<extractVersion>[^\\n]+))?(\\s+extractVersionTemplate=(?<extractVersionTemplate>[^\\n]+))?\\n(ARG|ENV)\\s+([^\\s]+)?VERSION=(?<currentValue>[^\\n]+)(\\n(ARG|ENV)\\s+([^\\s]+)?)"
       ],
       "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
     },
