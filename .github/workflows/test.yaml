@@ -2,6 +2,8 @@ name: Test
 on:
   pull_request:
   push:
+    branches:
+      - main
 
 concurrency:
   group: ci-test-${{ github.head_ref || github.ref }}-${{ github.repository }}
@@ -24,8 +26,10 @@ jobs:
           - system-upgrade-controller
           - argocd
           - "LocalAI"
+          - flux
+          - coco
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - uses: docker-practice/actions-setup-docker@master
       - run: ./earthly.sh --ci --push +test --BUNDLE=${{ matrix.bundles }}

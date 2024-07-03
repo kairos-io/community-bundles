@@ -1,4 +1,5 @@
-FROM alpine as build
+FROM alpine AS build
+# renovate: datasource=github-releases depName=fluxcd/flux2
 ENV VERSION=2.1.2
 ENV CHECKSUM=61b360b50d6cfc34410730b1cebeb75f5eda2b484e47b9a083412f51ad56de68
 
