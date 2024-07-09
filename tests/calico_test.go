@@ -17,7 +17,7 @@ var _ = Describe("calico test", Label("calico"), func() {
 		cleanBundle()
 	})
 
-	It("Deploy calico with default version", func() {
+	It("DSeploy calico with default version", func() {
 		runBundle()
 		dat, err := os.ReadFile(filepath.Join("/var/lib/rancher/k3s/server/manifests", "calico.yaml"))
 		content := string(dat)
