@@ -23,7 +23,7 @@ var _ = Describe("calico test", Label("calico"), func() {
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
 		// renovate: depName=tigera-operator repoUrl=https://docs.tigera.io/calico/charts
-		Expect(content).To(ContainSubstring("version: \"3.25.0\""))
+		Expect(content).To(ContainSubstring("version: \"v3.28.0\""))
 	})
 
 	It("Specifiy major version for calico", func() {
