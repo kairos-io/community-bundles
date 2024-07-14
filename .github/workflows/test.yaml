@@ -24,6 +24,7 @@ jobs:
           - kairos
           - kyverno
           - system-upgrade-controller
+          - argocd
           - "LocalAI"
           - flux
           - coco
