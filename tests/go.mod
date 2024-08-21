@@ -3,7 +3,7 @@ module github.com/kairos-io/community-bundles/tests
 go 1.19
 
 require (
-	github.com/onsi/ginkgo/v2 v2.20.0
+	github.com/onsi/ginkgo/v2 v2.20.1
 	github.com/onsi/gomega v1.34.1
 	gopkg.in/yaml.v3 v3.0.1
 )
