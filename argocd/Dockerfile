@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM alpine as build
+FROM alpine as build
 ARG TARGETARCH
 WORKDIR /assets
 RUN wget https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-$TARGETARCH -O argocd
