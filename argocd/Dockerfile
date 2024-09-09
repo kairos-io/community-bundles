@@ -13,5 +13,5 @@ RUN DOWNLOAD_FILE="/tmp/argocd-linux-amd64" && \
 
 FROM --platform=$BUILDPLATFORM scratch
 COPY ./run.sh /
-COPY --from=build argocd-linux-amd64 .
+COPY --from=build /tmp/argocd-linux-amd64 .
 COPY ./assets /assets
