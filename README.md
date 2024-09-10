@@ -442,8 +442,16 @@ bundles:
 
 # Specify argocd settings
 argocd:
-  values: ....
-  version: ...
+  values: 
+    redis-ha:
+      enabled: true
+    controller:
+      replicas: 1
+    server:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+  version: 7.5.2
 ```
 
 ## Development
