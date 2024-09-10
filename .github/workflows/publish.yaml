@@ -31,6 +31,7 @@ jobs:
           - multus
           - nginx
           - system-upgrade-controller
+          - argocd
           - "LocalAI"
     env:
       REGISTRY: quay.io
