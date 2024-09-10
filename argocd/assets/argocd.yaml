@@ -10,7 +10,7 @@ metadata:
   namespace: argocd
 spec:
   name: argocd
-  chart: argocd
+  chart: argo-cd
   repo: https://argoproj.github.io/argo-helm
   valuesContent: |-
     @VALUES@
