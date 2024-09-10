@@ -4,7 +4,6 @@ set -ex
 
 K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
-
 getConfig() {
     local key=$1
     _value=$(kairos-agent config get "${key} | @json" | tr -d '\n')
@@ -17,7 +16,7 @@ getConfig() {
 }
 
 VALUES="{}"
-VERSION="2.10.2"
+VERSION="7.5.2"
 
 templ() {
     local file="$3"
