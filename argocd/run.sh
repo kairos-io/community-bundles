@@ -16,7 +16,7 @@ getConfig() {
 }
 
 VALUES="{}"
-VERSION="7.5.2"
+VERSION="7.5.2" # Chart Version
 
 templ() {
     local file="$3"
