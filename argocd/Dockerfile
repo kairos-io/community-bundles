@@ -21,5 +21,5 @@ RUN DOWNLOAD_FILE="/tmp/argocd-linux-${TARGETARCH}" && \
 FROM --platform=$BUILDPLATFORM scratch
 ARG TARGETARCH
 COPY ./run.sh /
-COPY --from=build /tmp/argocd-linux-${TARGETARCH} .
+COPY --from=build /tmp/argocd-linux-${TARGETARCH} ./argocd
 COPY ./assets /assets
