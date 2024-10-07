@@ -1,6 +1,5 @@
 FROM alpine as build
 # renovate: datasource=github-releases depName=argoproj/argo-cd
-# Argocd version
 ENV VERSION=2.10.2 
 ARG TARGETARCH
 RUN if [[ "$TARGETARCH" = "amd64" ]]; then \
