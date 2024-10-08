@@ -28,7 +28,7 @@ var _ = Describe("nginx test", Label("nginx"), func() {
 		content := string(dat)
 		Expect(err).ToNot(HaveOccurred())
 		// renovate: depName=ingress-nginx repoUrl=https://kubernetes.github.io/ingress-nginx
-		Expect(content).To(ContainSubstring("version: \"4.11.2\""))
+		Expect(content).To(ContainSubstring("version: \"4.11.3\""))
 	})
 
 	It("set major version", func() {
