@@ -3,6 +3,7 @@
 set -ex
 
 K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
+BIN=/usr/local/bin/
 
 getConfig() {
     local key=$1
@@ -37,6 +38,7 @@ readConfig() {
 }
 
 mkdir -p "${K3S_MANIFEST_DIR}"
+mkdir -p $BIN
 
 readConfig
 
@@ -46,4 +48,15 @@ for FILE in assets/*; do
   templ "VERSION" "${VERSION}" "${FILE}"
 done;
 
+# get system arch
+ARCH=$(uname -m)
+
+if [ "$ARCH" == "x86_64" ]; then
+    SYSTEM_ARCH="amd64"
+else
+    if [ "$ARCH" == "aarch64" ]; then
+        SYSTEM_ARCH="arm64"
+fi
+
 cp -rf assets/* "${K3S_MANIFEST_DIR}"
+cp  argocd-linux-$SYSTEM_ARCH $BIN/argocd
