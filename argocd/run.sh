@@ -56,6 +56,7 @@ if [ "$ARCH" == "x86_64" ]; then
 else
     if [ "$ARCH" == "aarch64" ]; then
         SYSTEM_ARCH="arm64"
+    fi
 fi
 
 cp -rf assets/* "${K3S_MANIFEST_DIR}"
