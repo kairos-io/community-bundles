@@ -61,3 +61,4 @@ fi
 
 cp -rf assets/* "${K3S_MANIFEST_DIR}"
 cp  argocd-linux-"$SYSTEM_ARCH" $BIN/argocd
+sudo chmod +x $BIN/argocd
