@@ -49,13 +49,13 @@ for FILE in assets/*; do
 done;
 
 # get system arch
-ARCH=$(uname -m)
+ARCH=$(uname -m) 
+
+# Default to arm64 because community bundle don't support arm container so uname will always returns x86_64 
+SYSTEM_ARCH="arm64"
 
 if [ "$ARCH" == "x86_64" ]; then
     SYSTEM_ARCH="amd64"
-else
-    # Default to arm64 because community bundle don't support arm container so uname will always returns x86_64 
-    SYSTEM_ARCH="arm64"
 fi
 
 cp -rf assets/* "${K3S_MANIFEST_DIR}"
