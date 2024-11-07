@@ -15,7 +15,14 @@ version:
 
     COPY . ./
 
-    RUN echo $(git describe --exact-match --tags || echo "v0.0.0-$(git log --oneline -n 1 | cut -d" " -f1)") > VERSION
+    # If "ENV/ARG VERSION=" exists in Dockerfile, version image based on that value
+    # Otherwise, try to determine from tags. Failing that, v0.0.0-[git sha]
+    RUN DOCKERFILE_VERSION=$(cat Dockerfile | awk -F'=' '/ VERSION=/{print $2}'); \
+      if [[ "${DOCKERFILE_VERSION}x" != "x" ]]; then \
+        echo "$DOCKERFILE_VERSION" > VERSION; \
+      else \
+        echo $(git describe --exact-match --tags || echo "v0.0.0-$(git log --oneline -n 1 | cut -d" " -f1)") > VERSION; \
+      fi
 
     SAVE ARTIFACT VERSION VERSION
 
