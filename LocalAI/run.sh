@@ -4,7 +4,7 @@ set -ex
 
 K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
-VERSION="1.0.2"
+VERSION="3.4.2"
 
 templ() {
     local file="$3"
