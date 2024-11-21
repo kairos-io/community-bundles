@@ -14,7 +14,7 @@ getConfig() {
 }
 
 # renovate: depName=entangle repoUrl=https://kairos-io.github.io/helm-charts
-ENTANGLE_VERSION="0.2.3"
+ENTANGLE_VERSION="0.2.4"
 ENTANGLE_ENABLE=""
 # renovate: depName=entangle-proxy repoUrl=https://kairos-io.github.io/helm-charts
 ENTANGLEPROXY_VERSION="0.0.5"
