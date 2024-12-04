@@ -30,6 +30,7 @@ jobs:
           - metallb
           - multus
           - nginx
+          - spinkube
           - system-upgrade-controller
           - argocd
           - "LocalAI"
