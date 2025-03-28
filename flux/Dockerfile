@@ -1,7 +1,7 @@
 FROM alpine AS build
 # renovate: datasource=github-releases depName=fluxcd/flux2
-ENV VERSION=2.1.2
-ENV CHECKSUM=61b360b50d6cfc34410730b1cebeb75f5eda2b484e47b9a083412f51ad56de68
+ENV VERSION=2.5.1
+ENV CHECKSUM=f64c85db4b94aefcdf6e0f2825c32573fc2bd234e5489ff332fee62776973ec3
 
 ADD https://github.com/fluxcd/flux2/releases/download/v${VERSION}/flux_${VERSION}_linux_amd64.tar.gz /tmp
 RUN DOWNLOAD_FILE="/tmp/flux_${VERSION}_linux_amd64.tar.gz" && \
