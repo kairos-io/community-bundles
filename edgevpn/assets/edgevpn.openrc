@@ -18,4 +18,8 @@ fi
 depend() {
     need net
     after firewall
-} 
+}
+
+start_pre() {
+    modprobe tun || return 1
+}
