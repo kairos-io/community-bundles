@@ -1,0 +1,30 @@
+#!/sbin/openrc-run
+
+description="EdgeVPN service"
+
+depend() {
+    need net
+    after firewall
+}
+
+start() {
+    ebegin "Starting EdgeVPN"
+    start-stop-daemon --start --exec /usr/local/bin/edgevpn \
+        --background --make-pidfile --pidfile /var/run/edgevpn.pid \
+        -- --api --dhcp
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping EdgeVPN"
+    start-stop-daemon --stop --exec /usr/local/bin/edgevpn \
+        --pidfile /var/run/edgevpn.pid
+    eend $?
+}
+
+reload() {
+    ebegin "Reloading EdgeVPN"
+    start-stop-daemon --signal HUP --exec /usr/local/bin/edgevpn \
+        --pidfile /var/run/edgevpn.pid
+    eend $?
+} 

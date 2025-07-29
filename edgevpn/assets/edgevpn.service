@@ -1,0 +1,10 @@
+[Unit]
+Description=EdgeVPN
+After=network.target
+[Service]
+EnvironmentFile=/etc/systemd/system.conf.d/edgevpn-kairos.env
+LimitNOFILE=49152
+ExecStart=edgevpn --api --dhcp
+Restart=always
+[Install]
+WantedBy=multi-user.target
