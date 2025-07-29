@@ -62,8 +62,8 @@ var _ = Describe("edgevpn test", Label("edgevpn"), func() {
 
 			// Check for expected openrc service configuration
 			Expect(content).To(ContainSubstring("description=\"EdgeVPN service\""))
-			Expect(content).To(ContainSubstring("start-stop-daemon"))
-			Expect(content).To(ContainSubstring("--api --dhcp"))
+			Expect(content).To(ContainSubstring("command=\"/usr/local/bin/edgevpn\""))
+			Expect(content).To(ContainSubstring("command_args=\"--api --dhcp\""))
 		} else {
 			// Neither systemd nor openrc detected, skip service file check
 			Skip("Neither systemd nor openrc detected")
@@ -88,7 +88,7 @@ var _ = Describe("edgevpn test", Label("edgevpn"), func() {
 			content := string(dat)
 
 			// Check that the file contains the TOKEN variable definition
-			Expect(content).To(ContainSubstring("TOKEN="))
+			Expect(content).To(ContainSubstring("EDGEVPNTOKEN="))
 		} else if _, err := SH("rc-update --version"); err == nil {
 			// OpenRC is available, check for openrc environment
 			Expect(openrcEnvPath).To(BeAnExistingFile())
@@ -99,7 +99,7 @@ var _ = Describe("edgevpn test", Label("edgevpn"), func() {
 			content := string(dat)
 
 			// Check that the file contains the TOKEN variable definition
-			Expect(content).To(ContainSubstring("TOKEN="))
+			Expect(content).To(ContainSubstring("EDGEVPNTOKEN="))
 		} else {
 			// Neither systemd nor openrc detected, skip environment check
 			Skip("Neither systemd nor openrc detected")
@@ -133,7 +133,7 @@ var _ = Describe("edgevpn test", Label("edgevpn"), func() {
 			// OpenRC is available, check for openrc service enablement
 			// Check if service is enabled in default runlevel
 			out, err := SH("rc-update show default")
-			Expect(err).ToNot(HaveOccurred())
+			Expect(err).ToNot(HaveOccurred(), out)
 			Expect(string(out)).To(ContainSubstring("edgevpn"))
 
 			// Check service status if openrc is available
