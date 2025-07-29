@@ -42,11 +42,13 @@ elif command -v rc-update >/dev/null 2>&1; then
     echo "Setting up edgevpn for openrc"
     # Create environment file for openrc
     mkdir -p /etc/conf.d
-    echo "EDGEVPNTOKEN=$(getConfig edgevpn.token)" > /etc/conf.d/edgevpn
+    echo "export EDGEVPNTOKEN=$(getConfig edgevpn.token)" > /etc/conf.d/edgevpn
     cp assets/edgevpn.openrc /etc/init.d/edgevpn
     chmod +x /etc/init.d/edgevpn
-    # Enable the service (this will start it automatically)
+    # Enable the service for future boots
     rc-update add edgevpn default
+    # Start the service immediately
+    rc-service edgevpn start
 else
     echo "Warning: Neither systemd nor openrc detected. EdgeVPN service not started."
     echo "You may need to start it manually."
