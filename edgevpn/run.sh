@@ -48,7 +48,7 @@ elif command -v rc-update >/dev/null 2>&1; then
     # Enable the service for future boots
     rc-update add edgevpn default
     # Start the service immediately
-    rc-service edgevpn start
+    rc-service edgevpn start || true
 else
     echo "Warning: Neither systemd nor openrc detected. EdgeVPN service not started."
     echo "You may need to start it manually."
