@@ -23,6 +23,7 @@ jobs:
           - nginx
           - kairos
           - kyverno
+          - edgevpn
           - system-upgrade-controller
           - argocd
           - "LocalAI"
