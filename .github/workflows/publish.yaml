@@ -34,6 +34,7 @@ jobs:
           - system-upgrade-controller
           - argocd
           - "LocalAI"
+          - edgevpn
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
