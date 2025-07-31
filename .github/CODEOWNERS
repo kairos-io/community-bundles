@@ -1,0 +1,3 @@
+# This CODEOWNERS file is used to automatically assign maintainers as reviewers for all pull requests.
+# Ideally each bundle can be maintained by the creator of the bundle or whoever steps to become the maintainer, but in the meantime let's assing the maintainers team. If you want to own a bundle, please reach out :)
+* @kairos-io/maintainers
