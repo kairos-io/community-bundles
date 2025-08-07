@@ -2,18 +2,6 @@
 
 set -ex
 
-# Check for k0s or k3s binary and set manifest directory accordingly
-if command -v k0s >/dev/null 2>&1; then
-    K0S_MANIFEST_DIR=${K0S_MANIFEST_DIR:-/var/lib/k0s/manifests/kairos-operator/}
-    MANIFEST_DIR="${K0S_MANIFEST_DIR}"
-elif command -v k3s >/dev/null 2>&1; then
-    K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
-    MANIFEST_DIR="${K3S_MANIFEST_DIR}"
-else
-    echo "Neither k0s nor k3s binary found. Please ensure one is installed."
-    exit 1
-fi
-
 getConfig() {
     local l="$1"
     key=$(kairos-agent config get "${l}" | tr -d '\n')
@@ -23,19 +11,34 @@ getConfig() {
     echo   
 }
 
-VERSION="v0.0.1"
-
-templ() {
-    local file="$3"
-    local value="$2"
-    local sentinel="$1"
-    sed -i "s/@${sentinel}@/${value}/g" "${file}"
-}
+# renovate: datasource=github-releases depName=kairos-io/kairos-operator
+VERSION="0.0.1"
 
 readConfig() {
     _version=$(getConfig kairos-operator.version)
     if [ "$_version" != "" ]; then
         VERSION=$_version
+    fi
+    _k0s=$(getConfig kairos-operator.k0s)
+    _k3s=$(getConfig kairos-operator.k3s)
+    _manifest_dir=$(getConfig kairos-operator.manifest_dir)
+
+    if [ "$_manifest_dir" != "" ]; then
+        MANIFEST_DIR=$_manifest_dir
+    elif [ "$_k0s" == "true" ]; then
+        MANIFEST_DIR=/var/lib/k0s/manifests/kairos-operator/
+    elif [ "$_k3s" == "true" ]; then
+        MANIFEST_DIR=/var/lib/rancher/k3s/server/manifests/
+    elif command -v k0s >/dev/null 2>&1; then
+        MANIFEST_DIR=/var/lib/k0s/manifests/kairos-operator/
+    elif command -v k3s >/dev/null 2>&1; then
+        MANIFEST_DIR=/var/lib/rancher/k3s/server/manifests/
+    else
+        echo "Could not determine manifest directory. Please set one of the following options:"
+        echo "- kairos-operator.manifest_dir in the cloud-config."
+        echo "- kairos-operator.k0s in the cloud-config."
+        echo "- kairos-operator.k3s in the cloud-config."
+        exit 1
     fi
 }
 
@@ -43,9 +46,4 @@ mkdir -p "${MANIFEST_DIR}"
 
 readConfig
 
-# Copy manifests, and template them
-for FILE in assets/*; do 
-  templ "VERSION" "${VERSION}" "${FILE}"
-done;
-
-cp -rf assets/* "${MANIFEST_DIR}" 
+cp -rf assets/* "${MANIFEST_DIR}"
