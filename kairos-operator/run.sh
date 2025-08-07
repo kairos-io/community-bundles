@@ -12,8 +12,8 @@ getConfig() {
 }
 
 readConfig() {
-    _k0s=$(getConfig kairosOperator.k0s)
-    _k3s=$(getConfig kairosOperator.k3s)
+    _k0s=$(getConfig k0s.enabled)
+    _k3s=$(getConfig k3s.enabled)
     _manifest_dir=$(getConfig kairosOperator.manifest_dir)
 
     if [ "$_manifest_dir" != "" ]; then
@@ -26,9 +26,9 @@ readConfig() {
         MANIFEST_DIR=/var/lib/rancher/k3s/server/manifests/
     else
         echo "Could not determine manifest directory. Please set one of the following options:"
+        echo "- k0s.enabled in the cloud-config."
+        echo "- k3s.enabled in the cloud-config."
         echo "- kairosOperator.manifest_dir in the cloud-config."
-        echo "- kairosOperator.k0s in the cloud-config."
-        echo "- kairosOperator.k3s in the cloud-config."
         exit 1
     fi
 }

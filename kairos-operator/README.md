@@ -7,10 +7,14 @@ This bundle deploys the [Kairos Operator](https://github.com/kairos-io/kairos-op
 The bundle can be configured using Kairos agent configuration:
 
 ```yaml
+k0s:
+  enabled: true # if k0s is enabled or binary is found in the system, it will install under /var/lib/k0s/manifests/kairos-operator/kairos-operator.yaml
+
+k3s:
+  enabled: true # if k3s is enabled or binery is found in the system, it will install under /var/lib/rancher/k3s/server/manifests/
+
 kairosOperator:
-  k0s: true                    # Optional: Force k0s detection
-  k3s: true                    # Optional: Force k3s detection
-  manifest_dir: "/custom/path" # Optional: Custom manifest directory
+  manifest_dir: "/custom/path" # (optional) overrides the previous defaults
 ```
 
 ## Usage
@@ -53,13 +57,6 @@ kairosOperator:
 kairosOperator:
   manifest_dir: "/var/lib/custom/manifests/"
 ```
-
-## Custom Resources
-
-The Kairos operator provides two custom resources:
-
-- **NodeOp**: For generic operations on Kubernetes nodes
-- **NodeOpUpgrade**: For Kairos-specific node upgrades
 
 See the [Kairos Operator documentation](https://github.com/kairos-io/kairos-operator) for more details on usage.
 
