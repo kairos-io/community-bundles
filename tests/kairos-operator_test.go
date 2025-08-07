@@ -19,8 +19,8 @@ var _ = Describe("kairos-operator test", Label("kairos-operator"), func() {
 
 	It("it uses the default k0s directory", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
-kairosOperator:
- k0s: true`), 0655)
+k0s:
+ enabled: true`), 0655)
 		Expect(err).ToNot(HaveOccurred())
 		runBundle()
 		Expect(filepath.Join("/var/lib/k0s/manifests/kairos-operator", "kairos-operator.yaml")).To(BeARegularFile())
@@ -28,8 +28,8 @@ kairosOperator:
 
 	It("it uses the default k3s directory", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
-kairosOperator:
- k3s: true`), 0655)
+k3s:
+ enabled: true`), 0655)
 		Expect(err).ToNot(HaveOccurred())
 		runBundle()
 		Expect(filepath.Join("/var/lib/rancher/k3s/server/manifests", "kairos-operator.yaml")).To(BeARegularFile())
