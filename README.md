@@ -22,6 +22,7 @@ Please note that these community bundles are not officially supported and are pr
   - [Cert-manager](#cert-manager)
   - [Flux](#flux)
   - [Kairos](#kairos)
+  - [Kairos Operator](#kairos-operator)
   - [Kyverno](#kyverno)
   - [Kubevirt](#kubevirt)
   - [Longhorn](#longhorn)
@@ -467,6 +468,27 @@ bundles:
 # Specify system-upgrade-controller settings
 suc:
   version: v0.10.0
+```
+
+### Kairos Operator
+
+The Kairos Operator bundle deploys the [Kairos Operator](https://github.com/kairos-io/kairos-operator) to a k0s or k3s cluster.
+
+The bundle automatically detects the Kubernetes distribution and deploys to the appropriate manifest directory. You can also configure it manually:
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:kairos-operator_latest
+
+# Specify kairos-operator settings
+kairosOperator:
+  k0s: true                    # Optional: Force k0s detection
+  k3s: true                    # Optional: Force k3s detection
+  manifest_dir: "/custom/path" # Optional: Custom manifest directory
 ```
 
 ### ArgoCD
