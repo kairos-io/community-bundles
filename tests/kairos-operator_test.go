@@ -17,16 +17,30 @@ var _ = Describe("kairos-operator test", Label("kairos-operator"), func() {
 		cleanBundle()
 	})
 
-	It("has the desired kairos-operator version", func() {
+	It("it uses the default k0s directory", func() {
 		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
 kairosOperator:
- version: 0.0.1
  k0s: true`), 0655)
 		Expect(err).ToNot(HaveOccurred())
 		runBundle()
-		dat, err := os.ReadFile(filepath.Join("/var/lib/k0s/manifests/kairos-operator", "kairos-operator.yaml"))
-		content := string(dat)
+		Expect(filepath.Join("/var/lib/k0s/manifests/kairos-operator", "kairos-operator.yaml")).To(BeARegularFile())
+	})
+
+	It("it uses the default k3s directory", func() {
+		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
+kairosOperator:
+ k3s: true`), 0655)
 		Expect(err).ToNot(HaveOccurred())
-		Expect(content).To(ContainSubstring("v0.0.1"))
+		runBundle()
+		Expect(filepath.Join("/var/lib/rancher/k3s/server/manifests", "kairos-operator.yaml")).To(BeARegularFile())
+	})
+
+	It("it uses the custom directory", func() {
+		err := os.WriteFile("/oem/foo.yaml", []byte(`#cloud-config
+kairosOperator:
+ manifest_dir: /foobar`), 0655)
+		Expect(err).ToNot(HaveOccurred())
+		runBundle()
+		Expect(filepath.Join("/foobar", "kairos-operator.yaml")).To(BeARegularFile())
 	})
 })
