@@ -35,6 +35,7 @@ jobs:
           - argocd
           - "LocalAI"
           - edgevpn
+          - kairos-operator
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
