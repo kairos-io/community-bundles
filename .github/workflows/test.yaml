@@ -30,6 +30,7 @@ jobs:
           - coco
           - edgevpn
           - kairos-operator
+          - k9s
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
