@@ -32,6 +32,7 @@ Please note that these community bundles are not officially supported and are pr
   - [SpinKube](#spinkube)
   - [System upgrade controller](#system-upgrade-controller)
   - [ArgoCD](#argocd)
+  - [K9s](#k9s)
 - [Development](#development)
 
 ## Usage
@@ -522,6 +523,23 @@ argocd:
         minReplicas: 2
   version: 7.5.2
 ```
+
+### K9s
+
+The K9s bundle installs [K9s](https://k9scli.io/), a terminal-based UI for managing Kubernetes clusters.
+
+This bundle installs the k9s binary to `/usr/bin/k9s`, making it available system-wide. No additional configuration is required.
+
+```yaml
+#cloud-config
+
+# Specify the bundle to use
+bundles:
+  - targets:
+      - run://quay.io/kairos/community-bundles:k9s_latest
+```
+
+After installation, you can run `k9s` from the command line to manage your Kubernetes cluster.
 
 ## Development
 
