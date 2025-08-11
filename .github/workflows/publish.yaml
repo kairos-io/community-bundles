@@ -36,6 +36,7 @@ jobs:
           - "LocalAI"
           - edgevpn
           - kairos-operator
+          - k9s
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
