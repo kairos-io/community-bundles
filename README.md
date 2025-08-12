@@ -528,7 +528,7 @@ argocd:
 
 The K9s bundle installs [K9s](https://k9scli.io/), a terminal-based UI for managing Kubernetes clusters.
 
-This bundle installs the k9s binary to `/usr/bin/k9s`, making it available system-wide. No additional configuration is required.
+This bundle installs the k9s binary to `/usr/local/bin/k9s`, making it available system-wide. No additional configuration is required.
 
 ```yaml
 #cloud-config
