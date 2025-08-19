@@ -18,7 +18,7 @@ getConfig() {
 
 VALUES="{}"
 # renovate: depName=longhorn repoUrl=https://charts.longhorn.io
-VERSION="1.5.3"
+VERSION="1.9.1"
 
 templ() {
     local file="$3"
