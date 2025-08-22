@@ -49,4 +49,4 @@ jobs:
         with:
           version: "latest"
       - run: echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY
-      - run: earthly --ci --push --platform=linux/amd64,linux/arm64 +build --BUNDLE=${{ matrix.bundles }}
+      - run: earthly --ci --push +build-multi --BUNDLE=${{ matrix.bundles }}
