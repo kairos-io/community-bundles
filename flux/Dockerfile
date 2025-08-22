@@ -1,17 +1,13 @@
 FROM alpine AS build
 # renovate: datasource=github-releases depName=fluxcd/flux2
-ENV VERSION=2.5.1
-ENV CHECKSUM=f64c85db4b94aefcdf6e0f2825c32573fc2bd234e5489ff332fee62776973ec3
+# renovate: checksum=sha256
+ENV VERSION=2.6.4
+ENV AMD64_CHECKSUM=9d3e21ad53baa0d5a062e1bd6f1a22d18b95906c682845bca9ffa272cff8a590
+ENV ARM64_CHECKSUM=674e605f527841bb9b50a692b3ce497752cfc81438f85b4d1523d86aca637353
+ARG TARGETARCH
 
-ADD https://github.com/fluxcd/flux2/releases/download/v${VERSION}/flux_${VERSION}_linux_amd64.tar.gz /tmp
-RUN DOWNLOAD_FILE="/tmp/flux_${VERSION}_linux_amd64.tar.gz" && \
-    DOWNLOAD_CHECKSUM=$(sha256sum "${DOWNLOAD_FILE}" | awk '{print $1}') && \
-    if [[ ${DOWNLOAD_CHECKSUM} != ${CHECKSUM} ]]; then \
-      echo "Checksum does not match"; \
-      exit 1; \
-    fi && \
-    tar xzf "${DOWNLOAD_FILE}" -C / && \
-    rm "${DOWNLOAD_FILE}"
+COPY flux-download.sh .
+RUN chmod +x flux-download.sh && ./flux-download.sh
 
 FROM scratch
 COPY --from=build flux .

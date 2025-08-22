@@ -43,9 +43,10 @@ jobs:
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: docker/setup-qemu-action@v3
       - uses: docker-practice/actions-setup-docker@master
       - uses: earthly/actions-setup@v1
         with:
           version: "latest"
       - run: echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY
-      - run: earthly --ci --push +build --BUNDLE=${{ matrix.bundles }}
+      - run: earthly --ci --push --platform=linux/amd64,linux/arm64 +build --BUNDLE=${{ matrix.bundles }}
