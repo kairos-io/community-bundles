@@ -25,6 +25,12 @@ build:
     FROM DOCKERFILE -f ${BUNDLE}/Dockerfile ./${BUNDLE}
     SAVE IMAGE --push $IMAGE_REPOSITORY:${BUNDLE}_${VERSION}
 
+# Multi-platform build target
+build-multi:
+    COPY +version/VERSION ./
+    ARG VERSION=$(cat VERSION)
+    BUILD --platform linux/amd64 --platform linux/arm64 +build --BUNDLE=$BUNDLE
+
 rootfs:
     FROM +build
     SAVE ARTIFACT /. rootfs
