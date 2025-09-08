@@ -1,7 +1,7 @@
 FROM alpine:latest as build
 
 # renovate: datasource=github-releases depName=kairos-io/kairos-operator
-ENV VERSION=0.0.2
+ENV VERSION=0.0.3
 
 # Install kubectl for kustomize and git
 RUN apk add --no-cache curl git
