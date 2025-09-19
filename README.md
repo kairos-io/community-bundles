@@ -489,7 +489,7 @@ k0s:
   enabled: true # if k0s is enabled or binary is found in the system, it will install under /var/lib/k0s/manifests/kairos-operator/kairos-operator.yaml
 
 k3s:
-  enabled: true # if k3s is enabled or binery is found in the system, it will install under /var/lib/rancher/k3s/server/manifests/
+  enabled: true # if k3s is enabled or binary is found in the system, it will install under /var/lib/rancher/k3s/server/manifests/
 
 # Specify kairos-operator settings
 kairosOperator:
