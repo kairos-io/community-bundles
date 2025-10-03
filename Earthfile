@@ -47,8 +47,7 @@ build-multi:
     BUILD --platform linux/amd64 --platform linux/arm64 +build --BUNDLE=$BUNDLE --TAG_SUFFIX=$TAG_SUFFIX
     
     # If this is a version tag (starts with v), also build latest
-    RUN case "$TAG_SUFFIX" in v*) echo "true" > /tmp/build_latest ;; *) echo "false" > /tmp/build_latest ;; esac
-    IF [ "$(cat /tmp/build_latest)" = "true" ]
+    IF [ "${TAG_SUFFIX#v}" != "$TAG_SUFFIX" ]
         BUILD --platform linux/amd64 --platform linux/arm64 +build-latest --BUNDLE=$BUNDLE
     END
 
