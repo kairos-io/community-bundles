@@ -22,14 +22,34 @@ version:
 build:
     COPY +version/VERSION ./
     ARG VERSION=$(cat VERSION)
+    ARG TAG_SUFFIX="latest"
     FROM DOCKERFILE -f ${BUNDLE}/Dockerfile ./${BUNDLE}
-    SAVE IMAGE --push $IMAGE_REPOSITORY:${BUNDLE}_${VERSION}
+    
+    # Always push the specified tag
+    SAVE IMAGE --push $IMAGE_REPOSITORY:${BUNDLE}-${TAG_SUFFIX}
+
+build-latest:
+    COPY +version/VERSION ./
+    ARG VERSION=$(cat VERSION)
+    ARG TAG_SUFFIX="latest"
+    FROM DOCKERFILE -f ${BUNDLE}/Dockerfile ./${BUNDLE}
+    
+    # Push as latest (only called when needed)
+    SAVE IMAGE --push $IMAGE_REPOSITORY:${BUNDLE}_latest
 
 # Multi-platform build target
 build-multi:
     COPY +version/VERSION ./
     ARG VERSION=$(cat VERSION)
-    BUILD --platform linux/amd64 --platform linux/arm64 +build --BUNDLE=$BUNDLE
+    ARG TAG_SUFFIX="latest"
+    
+    # Always build the main tag
+    BUILD --platform linux/amd64 --platform linux/arm64 +build --BUNDLE=$BUNDLE --TAG_SUFFIX=$TAG_SUFFIX
+    
+    # If this is a version tag (starts with v), also build latest
+    IF [ "${TAG_SUFFIX#v}" != "$TAG_SUFFIX" ]
+        BUILD --platform linux/amd64 --platform linux/arm64 +build-latest --BUNDLE=$BUNDLE
+    END
 
 rootfs:
     FROM +build
