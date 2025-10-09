@@ -48,5 +48,19 @@ jobs:
       - uses: earthly/actions-setup@v1
         with:
           version: "latest"
+      - name: Determine tag suffix
+        id: tag
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            # Extract version from tag (e.g., refs/tags/v1.0.0 -> v1.0.0)
+            TAG_SUFFIX=${GITHUB_REF#refs/tags/}
+            echo "tag_suffix=$TAG_SUFFIX" >> $GITHUB_OUTPUT
+          elif [[ $GITHUB_REF == refs/heads/main ]]; then
+            echo "tag_suffix=main" >> $GITHUB_OUTPUT
+          else
+            # For other branches, we shouldn't be publishing, but if we do, use branch name
+            TAG_SUFFIX=${GITHUB_REF#refs/heads/}
+            echo "tag_suffix=$TAG_SUFFIX" >> $GITHUB_OUTPUT
+          fi
       - run: echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USER --password-stdin $REGISTRY
-      - run: earthly --ci --push +build-multi --BUNDLE=${{ matrix.bundles }}
+      - run: earthly --ci --push +build-multi --BUNDLE=${{ matrix.bundles }} --TAG_SUFFIX=${{ steps.tag.outputs.tag_suffix }}
