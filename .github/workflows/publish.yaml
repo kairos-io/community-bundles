@@ -37,6 +37,7 @@ jobs:
           - edgevpn
           - kairos-operator
           - k9s
+          - qemu-guest-agent
     env:
       REGISTRY: quay.io
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
