@@ -1,4 +1,4 @@
-FROM alpine:3.19 AS builder
+FROM alpine:3.22 AS builder
 
 ARG spin_operator_version=0.4.0
 ARG kwasm_installer_version=0.17.0
