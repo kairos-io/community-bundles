@@ -6,7 +6,7 @@ K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
 VALUES="{}"
 # renovate: depName=ingress-nginx repoUrl=https://kubernetes.github.io/ingress-nginx
-VERSION="4.13.1"
+VERSION="4.13.3"
 
 templ() {
     local file="$3"
