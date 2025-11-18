@@ -43,7 +43,7 @@ jobs:
       REGISTRY_USER: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
       - uses: docker/setup-qemu-action@v3
       - uses: docker-practice/actions-setup-docker@master
       - uses: earthly/actions-setup@v1
