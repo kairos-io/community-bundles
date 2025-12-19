@@ -6,7 +6,7 @@ K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
 
 VALUES="{}"
 # renovate: depName=tigera-operator repoUrl=https://docs.tigera.io/calico/charts
-VERSION="v3.30.3"
+VERSION="v3.31.3"
 
 templ() {
     local file="$3"
