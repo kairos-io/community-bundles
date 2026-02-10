@@ -3,9 +3,9 @@ FROM alpine as build
 ENV VERSION=v2.14.21
 ARG TARGETARCH
 RUN if [[ "$TARGETARCH" = "amd64" ]]; then \
-      export CHECKSUM=a8da9fa1ea7b7072007f535d39526ad0c4a8b8eb58779b48774126335c576187; \
+      export CHECKSUM=a683ed902e3b7cdfd2b50d7a82b93ce00883064bca58418cace5e643ba755769; \
     elif [[ "$TARGETARCH" = "arm64" ]]; then \
-      export CHECKSUM=8314c9fda218145344cb0af68ceb8f31338bf11ab4ec315ba553cf6268e17444; \
+      export CHECKSUM=b1822e83104e6d5a3d053eb7dcc3c261a7bd98c30f964440bceec3006be91abc; \
     fi && \
       echo "CHECKSUM=${CHECKSUM}" > /tmp/checksum_env
 RUN source /tmp/checksum_env && echo "CHECKSUM is: ${CHECKSUM}"
