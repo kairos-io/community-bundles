@@ -9,7 +9,7 @@ RUN if [[ "$TARGETARCH" = "amd64" ]]; then \
     fi && \
       echo "CHECKSUM=${CHECKSUM}" > /tmp/checksum_env
 RUN source /tmp/checksum_env && echo "CHECKSUM is: ${CHECKSUM}"
-ADD "https://github.com/argoproj/argo-cd/releases/download/v${VERSION}/argocd-linux-${TARGETARCH}" /tmp
+ADD "https://github.com/argoproj/argo-cd/releases/download/${VERSION}/argocd-linux-${TARGETARCH}" /tmp
 RUN DOWNLOAD_FILE="/tmp/argocd-linux-${TARGETARCH}" && \
     DOWNLOAD_CHECKSUM=$(sha256sum "${DOWNLOAD_FILE}" | awk '{print $1}') && \
     if [[ ${DOWNLOAD_CHECKSUM} != ${CHECKSUM} ]]; then \
