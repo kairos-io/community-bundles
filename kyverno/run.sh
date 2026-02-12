@@ -18,7 +18,7 @@ getConfig() {
 
 VALUES="{}"
 # renovate: depName=kyverno repoUrl=https://kyverno.github.io/kyverno/
-VERSION="3.4.4"
+VERSION="3.7.0"
 
 templ() {
     local file="$3"
