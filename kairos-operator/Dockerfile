@@ -1,7 +1,7 @@
 FROM alpine:latest as build
 
 # renovate: datasource=github-releases depName=kairos-io/kairos-operator
-ENV VERSION=0.0.3
+ENV VERSION=0.0.7
 
 # Install kubectl for kustomize and git
 RUN apk add --no-cache curl git
@@ -16,5 +16,7 @@ RUN git clone --depth 1 --branch v${VERSION} https://github.com/kairos-io/kairos
 RUN cd /tmp/kairos-operator/config/default && kubectl kustomize . > /kairos-operator.yaml
 
 FROM scratch
+COPY --from=build /usr/local/bin/kubectl /assets/kubectl
 COPY --from=build /kairos-operator.yaml /assets/kairos-operator.yaml
-COPY ./run.sh / 
+COPY ./overlays /assets/overlays
+COPY ./run.sh /

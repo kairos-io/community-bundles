@@ -31,9 +31,47 @@ readConfig() {
         echo "- kairosOperator.manifest_dir in the cloud-config."
         exit 1
     fi
+
+    OPERATOR_IMAGE=$(getConfig kairosOperator.images.operator)
+    NODE_LABELER_IMAGE=$(getConfig kairosOperator.images.nodeLabeler)
+    SENTINEL_IMAGE=$(getConfig kairosOperator.images.sentinel)
+    NODEOP_DEFAULT_IMAGE=$(getConfig kairosOperator.images.nodeOpDefault)
+}
+
+processOverlay() {
+    local overlay_file="$1"
+    local env_name="$2"
+    local env_value="$3"
+    local copy_from_env_overlay="$4"
+
+    if [ -z "$env_value" ]; then
+        return
+    fi
+
+    if [ "$copy_from_env_overlay" = true ]; then
+        cp "assets/overlays/env-var-image.yaml" "assets/overlays/${overlay_file}"
+    fi
+
+    sed -i "s|@ENV_NAME@|${env_name}|g" "assets/overlays/${overlay_file}"
+    sed -i "s|@ENV_VALUE@|${env_value}|g" "assets/overlays/${overlay_file}"
+    echo "  - path: ${overlay_file}" >> assets/overlays/kustomization.yaml
+    HAS_OVERLAYS=true
 }
 
 readConfig
 
+HAS_OVERLAYS=false
+
+processOverlay "operator-image.yaml" "OPERATOR_IMAGE" "$OPERATOR_IMAGE"
+processOverlay "operator-env.yaml" "OPERATOR_IMAGE" "$OPERATOR_IMAGE" true
+processOverlay "node-labeler-env.yaml" "NODE_LABELER_IMAGE" "$NODE_LABELER_IMAGE" true
+processOverlay "sentinel-env.yaml" "SENTINEL_IMAGE" "$SENTINEL_IMAGE" true
+processOverlay "nodeop-default-env.yaml" "NODEOP_DEFAULT_IMAGE" "$NODEOP_DEFAULT_IMAGE" true
+
+if [ "$HAS_OVERLAYS" = true ]; then
+    cp assets/kairos-operator.yaml assets/overlays/kairos-operator.yaml
+    assets/kubectl kustomize assets/overlays > assets/kairos-operator.yaml
+fi
+
 mkdir -p "${MANIFEST_DIR}"
-cp -rf assets/* "${MANIFEST_DIR}"
+cp -f assets/kairos-operator.yaml "${MANIFEST_DIR}"
