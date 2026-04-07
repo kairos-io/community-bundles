@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operator-kairos-operator
+  namespace: operator-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: manager
+        image: "@ENV_VALUE@"
