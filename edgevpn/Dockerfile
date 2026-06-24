@@ -1,13 +1,13 @@
 FROM alpine AS build
 # renovate: datasource=github-releases depName=mudler/edgevpn
-ENV VERSION=0.30.2
+ENV VERSION=0.35.2
 ARG TARGETARCH
 
 RUN if [[ "$TARGETARCH" = "amd64" ]]; then \
-      export CHECKSUM=45073d7e0fd0a38bfa7fc634fc7f603e6c636e933f8b8ff25a21fa589abce18a; \
+      export CHECKSUM=0e161225e77357e0c047d5ce12009f3b1fb9e1e825b2d6f61d4d99afb40b9e0d; \
       export ARCH=x86_64; \
     elif [[ "$TARGETARCH" = "arm64" ]]; then \
-      export CHECKSUM=b4a8be84ec9a886bfb38560ed0cc9a8b3f48748c7ca0a60265204de42026854e; \
+      export CHECKSUM=a71d20bd140d2b433ac0d098b83277893c3d3e77f4a658cc0ae663de6cbf8816; \
       export ARCH=arm64; \
     fi && \
       echo "CHECKSUM=${CHECKSUM}" >> /tmp/edgevpn_env && \
