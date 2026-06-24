@@ -8,8 +8,8 @@ BIN=/usr/local/bin/
 getConfig() {
     local key=$1
     _value=$(kairos-agent config get "${key} | @json" | tr -d '\n')
-    # Remove the quotes wrapping the value.
-    _value=${_value:1:${#_value}-2}
+    # Remove the quotes wrapping the value (POSIX-compatible, as bundles run with /bin/sh).
+    _value=$(printf '%s' "${_value}" | sed -e 's/^"//' -e 's/"$//')
     if [ "${_value}" != "null" ]; then
      echo "${_value}"
     fi 
