@@ -55,11 +55,15 @@ rootfs:
     FROM +build
     SAVE ARTIFACT /. rootfs
 
+go-toolchain:
+    FROM golang:1.25-alpine
+    SAVE ARTIFACT /usr/local/go /usr/local/go
+
 test:
     FROM quay.io/kairos/core-alpine-opensuse-leap
-    RUN apk add go
+    COPY +go-toolchain/usr/local/go /usr/local/go
     ENV GOPATH=/go
-    ENV PATH=$PATH:$GOPATH/bin
+    ENV PATH=/usr/local/go/bin:$PATH:$GOPATH/bin
     COPY (+rootfs/rootfs --BUNDLE=$BUNDLE) /bundle
     COPY . .
     RUN cd tests && \ 
