@@ -14,7 +14,7 @@ getConfig() {
 }
 
 # renovate: depName=metallb repoUrl=https://metallb.github.io/metallb
-VERSION="0.15.3"
+VERSION="0.16.1"
 ADDRESS_POOL="192.168.1.10-192.168.1.20"
 
 templ() {
